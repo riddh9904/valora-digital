@@ -1,4 +1,4 @@
-# Nexora Growth: marketing website
+# Valora Digital: marketing website
 
 The marketing site for a pre-launch performance marketing agency. It is built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS v4**, **Motion** (Framer Motion), **Recharts** and **Lucide** icons.
 
