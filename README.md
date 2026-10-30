@@ -2,8 +2,6 @@
 
 The marketing site for a pre-launch performance marketing agency. It is built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS v4**, **Motion** (Framer Motion), **Recharts** and **Lucide** icons.
 
-> "Nexora Growth" is a **placeholder brand name**. Its trademark and domain availability have not been checked. You can change it in one place (see [Rebranding](#rebranding)).
-
 The site is built so that nothing on it is fabricated. All dashboards use synthetic sample data and are labelled as illustrative. Proof points, case-study outcomes, founder profiles and contact details stay **hidden until you add real, verified values** to the config.
 
 ---
@@ -54,7 +52,7 @@ The form posts to [`app/api/lead/route.ts`](app/api/lead/route.ts). That route v
   ```json
   {
     "type": "website_enquiry",
-    "source": "Nexora Growth",
+    "source": "Valora Digital",
     "submittedAt": "2026-10-16T14:38:47.204Z",
     "page": "https://…/",
     "lead": {

@@ -33,12 +33,11 @@ const env = (value: string | undefined) =>
   value && value.trim().length > 0 ? value.trim() : null;
 
 export const site = {
-  /** Temporary placeholder brand. Not checked for trademark/legal availability. */
-  name: "Nexora Growth",
-  shortName: "Nexora",
+  name: "Valora Digital",
+  shortName: "Valora",
   tagline: "Performance marketing with conversion intelligence.",
   description:
-    "Nexora Growth is a performance marketing partner for ambitious businesses: Meta and Google Ads, lead generation, conversion rate optimization and marketing analytics that connect spend to real business outcomes.",
+    "Valora Digital is a performance marketing partner for ambitious businesses: Meta and Google Ads, lead generation, conversion rate optimization and marketing analytics that connect spend to real business outcomes.",
   /** Canonical origin. Override with NEXT_PUBLIC_SITE_URL in each environment. */
   url: env(process.env.NEXT_PUBLIC_SITE_URL) ?? "http://localhost:3000",
   locale: "en_IN",
