@@ -7,7 +7,7 @@ import { ContactChannels } from "@/components/ui/ContactChannels";
 const strengths = [
   { title: "Technical & engineering", text: "Tracking, integrations and automation built properly, not patched together." },
   { title: "Data science & analytics", text: "Careful measurement, sound comparisons and honest interpretation of results." },
-  { title: "Hands-on marketing projects", text: "Practical experience planning and running campaigns, and learning from the data." },
+  { title: "Performance marketing", text: "Platform AI set-up, creative testing and budget decisions, run hands-on rather than handed off." },
 ];
 
 export function Founders() {

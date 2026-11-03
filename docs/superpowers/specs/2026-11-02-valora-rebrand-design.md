@@ -122,7 +122,7 @@ All copy follows the review artifact's Phase 4 rewrites, updated with the decisi
 - **Hero.**
   - Kicker: "AI-driven performance marketing · Dubai and Gurugram", with a live dot.
   - H1: "Ad platforms run on AI. We teach it what a customer is."
-  - Subhead: "Valora runs Meta and Google Ads, plus LinkedIn, TikTok, Snapchat and more, for businesses in India, the UAE and beyond. We train the platforms' AI on qualified leads and sales instead of form fills, test AI-generated creative at speed, and report what every customer cost."
+  - Subhead: "Valora manages Meta, Google and other paid advertising platforms for businesses across India, the UAE and beyond. We feed each platform's AI your qualified leads and sales instead of raw form fills, test AI-generated creative at speed, and report what each customer costs to acquire."
   - CTAs: the primary CTA, plus "See the live report →", which goes to the measurement section.
   - Below the CTAs: a compact, light, interactive demo card (KPIs: spend, qualified leads, cost per qualified lead, opportunities; a 30D/90D toggle; trend lines), stamped "Live demo · Sample data". It reuses `lib/sample-data.ts` and `lib/metrics.ts`.
   - Under the card: three commitments, Cost per qualified lead · Reconciled with your CRM · Caveats in writing.

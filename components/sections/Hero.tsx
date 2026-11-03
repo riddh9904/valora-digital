@@ -30,10 +30,9 @@ export function Hero() {
           Ad platforms run on AI. We teach it what a customer is.
         </h1>
         <p className="mt-6 max-w-[60ch] text-[1.06rem] leading-relaxed text-graphite sm:mx-auto sm:text-lg">
-          Valora runs Meta and Google Ads, plus LinkedIn, TikTok, Snapchat and more, for businesses in India, the UAE
-          and beyond. We train the platforms’ AI on
-          qualified leads and sales instead of form fills, test AI-generated creative at speed, and report what every
-          customer cost.
+          Valora manages Meta, Google and other paid advertising platforms for businesses across India, the UAE and
+          beyond. We feed each platform’s AI your qualified leads and sales instead of raw form fills, test
+          AI-generated creative at speed, and report what each customer costs to acquire.
         </p>
         <div className="mt-9 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center sm:gap-6">
           <BookCallButton size="lg" />

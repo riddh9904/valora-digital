@@ -71,6 +71,8 @@ export const CHALLENGE_OPTIONS = [
   { value: "other", label: "Something else" },
 ] as const;
 
+export type ChallengeValue = (typeof CHALLENGE_OPTIONS)[number]["value"];
+
 export const INDUSTRY_OPTIONS = [
   ...industries.map((i) => ({ value: i.id, label: i.title })),
   { value: "other", label: "Other" },

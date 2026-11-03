@@ -36,8 +36,8 @@ export function Measurement() {
           tone="dark"
           layout="split"
           kicker="How we measure"
-          title="What your weekly report looks like."
-          intro="Spend, leads, qualified leads and opportunities in one view, by campaign. This demo runs on generated data. We build the same kind of report in Looker Studio, GA4 or your CRM."
+          title="Ad platforms report activity. We report customers."
+          intro="Here is what your weekly report looks like: spend, leads, qualified leads and opportunities in one view, by campaign. This demo runs on generated data. We build the same kind of report in Looker Studio, GA4 or your CRM."
         />
 
         <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-16">

@@ -1,5 +1,4 @@
 import { Hero } from "@/components/sections/Hero";
-import { Problem } from "@/components/sections/Problem";
 import { Services } from "@/components/sections/Services";
 import { Industries } from "@/components/sections/Industries";
 import { Measurement } from "@/components/sections/Measurement";
@@ -13,7 +12,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Problem />
       <Services />
       <Industries />
       <Measurement />

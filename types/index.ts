@@ -1,3 +1,5 @@
+import type { ChallengeValue } from "@/lib/lead-schema";
+
 export type Channel = "meta" | "google";
 
 export interface NavItem {
@@ -6,10 +8,19 @@ export interface NavItem {
 }
 
 export interface Service {
-  id: "acquire" | "convert" | "measure";
-  title: string;
+  id: "lead-generation" | "conversion" | "profitability";
+  label: string;
+  headline: string;
   summary: string;
   includes: string[];
+  problem: string;
+  /** Hypothetical. Always rendered with one "Illustrative scenario" stamp. No client, city, brand or numeric result. */
+  scenario: string;
+  approach: [string, string, string, string];
+  metrics: string[];
+  tools: string[];
+  watchOut: string;
+  cta: { label: string; challenge: ChallengeValue };
 }
 
 export interface Industry {
@@ -21,7 +32,6 @@ export interface Industry {
   summary: string;
   problem: string;
   focus: string[];
-  services: string[];
   /** Labels for the stylised mini-funnel illustration (top → bottom). */
   funnel: [string, string, string, string];
 }
@@ -37,7 +47,7 @@ export interface ProofPoint {
   verified: boolean;
 }
 
-export type CaseStudyKind = "verified" | "illustrative" | "methodology";
+export type CaseStudyKind = "verified";
 
 export interface CaseStudyOutcome {
   metric: string;
@@ -55,7 +65,7 @@ export interface CaseStudy {
   objective: string;
   work: string[];
   tools: string[];
-  /** Rendered only when `kind === "verified"`. */
+  /** Rendered only with `publicationApproved: true` and a `source` on every outcome. */
   outcomes?: CaseStudyOutcome[];
   measurementPeriod?: string;
   dataSource?: string;

@@ -3,7 +3,7 @@
 import { industries } from "@/config/site";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Disclosure } from "@/components/ui/Disclosure";
-import { prefillEnquiry } from "@/lib/prefill";
+import { PrefillCta } from "@/components/ui/PrefillCta";
 import type { Industry } from "@/types";
 
 const CTA_NAME: Record<string, string> = {
@@ -28,19 +28,13 @@ function Journey({ ind }: { ind: Industry }) {
   );
 }
 
-// A text link rather than a filled button: four ink blocks in a row were heavy, and
-// "professional services" wrapped inside a fixed-height button at 1024–1440px.
 function Cta({ ind, className = "" }: { ind: Industry; className?: string }) {
   return (
-    <button
-      type="button"
-      onClick={() => prefillEnquiry({ industry: ind.id })}
-      className={`inline-flex min-h-11 cursor-pointer items-center text-left text-[0.92rem] sm:min-h-0 sm:inline sm:items-baseline font-medium text-ink-900 hover:text-signal ${className}`}
-    >
-      <span className="link-underline">Talk to us about {CTA_NAME[ind.id] ?? "your sector"}</span>
-      {/* No-break space keeps the arrow with the last word when the label wraps. */}
-      <span aria-hidden>{"\u00a0→"}</span>
-    </button>
+    <PrefillCta
+      label={`Talk to us about ${CTA_NAME[ind.id] ?? "your sector"}`}
+      detail={{ industry: ind.id }}
+      className={className}
+    />
   );
 }
 
