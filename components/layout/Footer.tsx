@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { navItems, site } from "@/config/site";
 import { CopyrightYear } from "@/components/ui/CopyrightYear";
 import { ContactChannels } from "@/components/ui/ContactChannels";
@@ -9,13 +10,13 @@ const BUILD_YEAR = Number(process.env.NEXT_PUBLIC_BUILD_YEAR) || 2026;
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="kicker text-slate-400">{title}</h2>
+      <h2 className="kicker text-white/55">{title}</h2>
       <div className="mt-5">{children}</div>
     </div>
   );
 }
 
-const linkCls = "link-underline text-slate-300 transition-colors hover:text-white";
+const linkCls = "link-underline text-white/70 transition-colors hover:text-white";
 
 export function Footer() {
   return (
@@ -24,7 +25,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="max-w-sm">
             <Wordmark tone="dark" />
-            <p className="mt-6 text-sm leading-relaxed text-slate-400">{site.description}</p>
+            <p className="mt-6 text-sm leading-relaxed text-white/70">{site.description}</p>
           </div>
 
           <Column title="Company">
@@ -41,6 +42,19 @@ export function Footer() {
 
           <Column title="Contact">
             <ContactChannels tone="dark" />
+            {site.social.linkedin && (
+              <p className="mt-3 text-[0.95rem]">
+                <a
+                  href={site.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${linkCls} inline-flex items-center gap-1`}
+                >
+                  LinkedIn <ArrowUpRight aria-hidden className="size-3.5" />
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+              </p>
+            )}
           </Column>
 
           <Column title="Legal">
@@ -59,7 +73,7 @@ export function Footer() {
           </Column>
         </div>
 
-        <div className="mt-16 border-t border-white/10 pt-8 text-xs text-slate-400">
+        <div className="mt-16 border-t border-white/10 pt-8 text-xs text-white/55">
           <p>
             © <CopyrightYear fallback={BUILD_YEAR} /> Valora Digital. All rights reserved.
           </p>
