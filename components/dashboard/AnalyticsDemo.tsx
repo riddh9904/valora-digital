@@ -129,7 +129,7 @@ function Delta({ value, upIsGood }: { value: number; upIsGood: boolean | null })
       {formatDelta(value)}
       <span className="sr-only">
         {" "}
-        vs previous period{good === null ? "" : good ? " (favorable)" : " (unfavorable)"}
+        vs previous period{good === null ? "" : good ? " (favourable)" : " (unfavourable)"}
       </span>
     </span>
   );
