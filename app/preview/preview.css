@@ -1,0 +1,107 @@
+/* ────────────────────────────────────────────────────────────────────────────
+   Signal design preview. Scoped to .vp-root so the rest of the site is untouched.
+   Each zone redefines --fg / --muted / --bg / --line, so the same markup renders
+   on white or on ink (the "split" option darkens the top zone only).
+   ──────────────────────────────────────────────────────────────────────────── */
+.vp-root {
+  --vp-ink: #0b0c0e;
+  --vp-mist: #f4f5f4;
+  --vp-graphite: #5e6368;
+  --vp-line: #e1e3e1;
+  --vp-signal: #0b7a5a;
+  --vp-signal-bright: #12b886;
+
+  --fg: var(--vp-ink);
+  --muted: var(--vp-graphite);
+  --bg: #ffffff;
+  --line: var(--vp-line);
+  --cta-bg: var(--vp-signal);
+  --cta-fg: #ffffff;
+  --tile: var(--vp-ink);
+  --tile-v: #ffffff;
+}
+
+.vp-root[data-bg="split"] .vp-zone-top {
+  --fg: #f4f5f4;
+  --muted: #a9aeb3;
+  --bg: var(--vp-ink);
+  --line: #26292d;
+  --cta-bg: var(--vp-signal-bright);
+  --cta-fg: var(--vp-ink);
+  --tile: #f4f5f4;
+  --tile-v: var(--vp-ink);
+}
+
+/* The demo band bridges the top zone and the white page below it. */
+.vp-root .vp-demo-band {
+  background: linear-gradient(#ffffff 0 42%, var(--vp-mist) 42%);
+}
+.vp-root[data-bg="split"] .vp-demo-band {
+  background: linear-gradient(var(--vp-ink) 0 46%, var(--vp-mist) 46%);
+}
+
+/* Hide the current site's header and footer while the preview is on screen. */
+body:has(.vp-root) > header,
+body:has(.vp-root) > footer {
+  display: none;
+}
+html:has(.vp-root) {
+  background: #ffffff;
+}
+
+@layer base {
+  .vp-root {
+    font-family: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: normal;
+    background: var(--bg);
+    color: var(--fg);
+  }
+  .vp-root h1,
+  .vp-root h2,
+  .vp-root h3 {
+    font-family: inherit;
+  }
+  .vp-root :focus-visible {
+    outline-color: var(--vp-signal-bright);
+  }
+}
+
+@layer components {
+  .vp-mono {
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Chamfered label: the logo tile's corner, reused for every disclosure. */
+  .vp-stamp {
+    --c: 5px;
+    clip-path: polygon(
+      var(--c) 0,
+      calc(100% - var(--c)) 0,
+      100% var(--c),
+      100% calc(100% - var(--c)),
+      calc(100% - var(--c)) 100%,
+      var(--c) 100%,
+      0 calc(100% - var(--c)),
+      0 var(--c)
+    );
+  }
+
+  .vp-live-dot {
+    box-shadow: 0 0 0 3px rgb(18 184 134 / 0.2);
+    animation: vp-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes vp-pulse {
+    50% {
+      box-shadow: 0 0 0 6px rgb(18 184 134 / 0);
+    }
+  }
+
+  .vp-link {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size var(--dur-base) var(--ease-out-quint);
+  }
+  .vp-link:hover {
+    background-size: 100% 1px;
+  }
+}
