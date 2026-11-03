@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./tests/alias.mjs --test tests/*.test.ts",
     "dev:inbox": "node scripts/dev-lead-inbox.mjs"
   },
   "dependencies": {
