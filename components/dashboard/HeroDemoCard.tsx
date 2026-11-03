@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { dailyByChannel, relativeChange, selectPeriods, totals, type RangeDays } from "@/lib/metrics";
 import { formatCurrency, formatDelta, formatNumber } from "@/lib/format";
 import { SampleDataLabel } from "@/components/ui/SampleDataLabel";
@@ -28,6 +28,20 @@ const fmtCurrency = (n: number) => formatCurrency(n);
 /** Compact, light version of the measurement demo. Same deterministic sample data. */
 export function HeroDemoCard() {
   const [range, setRange] = useState<RangeDays>(30);
+  const radios = useRef<(HTMLButtonElement | null)[]>([]);
+
+  function onRadioKey(e: KeyboardEvent, index: number) {
+    const last = RANGES.length - 1;
+    let next: number;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") next = index === last ? 0 : index + 1;
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = index === 0 ? last : index - 1;
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = last;
+    else return;
+    e.preventDefault();
+    setRange(RANGES[next].value);
+    radios.current[next]?.focus();
+  }
 
   const view = useMemo(() => {
     const { current, previous, dates } = selectPeriods({ range, channel: "all", campaignId: "all" });
@@ -53,12 +67,17 @@ export function HeroDemoCard() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <SampleDataLabel />
         <div role="radiogroup" aria-label="Date range" className="font-mono inline-flex rounded-md bg-mist p-1 text-xs">
-          {RANGES.map((r) => (
+          {RANGES.map((r, i) => (
             <button
               key={r.value}
+              ref={(el) => {
+                radios.current[i] = el;
+              }}
               type="button"
               role="radio"
               aria-checked={range === r.value}
+              tabIndex={range === r.value ? 0 : -1}
+              onKeyDown={(e) => onRadioKey(e, i)}
               onClick={() => setRange(r.value)}
               className={`rounded px-3 py-1.5 font-medium transition-colors ${
                 range === r.value ? "bg-white shadow-[0_1px_2px_rgb(0_0_0/0.08)]" : "text-graphite hover:text-ink-900"
@@ -81,7 +100,8 @@ export function HeroDemoCard() {
               } lg:border-l lg:pl-5 lg:first:border-l-0 lg:first:pl-0`}
             >
               <dt className="text-[0.8rem] text-graphite">{k.label}</dt>
-              <dd className="font-mono mt-2 text-[1.55rem] leading-none font-medium tracking-[-0.02em] sm:text-[1.9rem]"><AnimatedNumber value={k.value} format={k.format} />
+              <dd className="font-mono mt-2 text-[1.55rem] leading-none font-medium tracking-[-0.02em] sm:text-[1.9rem]">
+                <AnimatedNumber value={k.value} format={k.format} />
               </dd>
               <dd
                 className={`font-mono mt-2 text-xs ${
