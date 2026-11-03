@@ -279,8 +279,13 @@ export function AnalyticsDemo() {
           </div>
         </div>
 
+        {/* One announcement of the final figures; the animated tiles are not live regions. */}
+        <p className="sr-only" aria-live="polite" aria-atomic="true">
+          {`Spend ${kpis[0].format(kpis[0].value)}, clicks ${kpis[1].format(kpis[1].value)}, leads ${kpis[2].format(kpis[2].value)}, cost per qualified lead ${kpis[3].format(kpis[3].value)}, cost per lead ${kpis[4].format(kpis[4].value)}, click-to-lead rate ${kpis[5].format(kpis[5].value)}.`}
+        </p>
+
         {/* KPI tiles */}
-        <dl aria-live="polite" className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-white/[0.08] bg-white/[0.08] sm:grid-cols-3 xl:grid-cols-6">
+        <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-white/[0.08] bg-white/[0.08] sm:grid-cols-3 xl:grid-cols-6">
           {kpis.map((k) => (
             <div key={k.label} className="flex flex-col bg-ink-850 p-4 sm:p-5">
               <dt className="text-xs text-white/60">{k.label}</dt>

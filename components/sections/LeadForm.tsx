@@ -224,6 +224,7 @@ export function LeadForm() {
 
   function goBack() {
     setStep(1);
+    setStatus((s) => (s.kind === "error" ? { kind: "idle" } : s));
     revealStep.current = true;
     pendingFocus.current = "input[name=fullName]";
   }
@@ -310,6 +311,7 @@ export function LeadForm() {
             setStartedAt(null);
             setStep(1);
             setStatus({ kind: "idle" });
+            pendingFocus.current = "input[name=fullName]";
           }}
           className="mt-8 inline-flex items-center gap-2 text-sm text-graphite underline-offset-4 hover:text-ink-900 hover:underline"
         >
@@ -411,7 +413,7 @@ export function LeadForm() {
                   setTouched((t) => ({ ...t, consent: true }));
                   setErrors((er) => ({ ...er, consent: e.target.checked ? undefined : er.consent }));
                 }}
-                className="mt-1 size-4 shrink-0 cursor-pointer rounded border-line"
+                className="mt-1 size-4 shrink-0 cursor-pointer rounded border border-field"
               />
               <span>
                 I agree that {site.name} may use these details to respond to my enquiry, as described in the{" "}

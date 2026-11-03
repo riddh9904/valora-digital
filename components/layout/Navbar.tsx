@@ -135,6 +135,7 @@ export function Navbar() {
               className={buttonClasses("ink", "md", "!h-10 !px-4")}
             >
               {site.cta.primary}
+              {bookExternal && <span className="sr-only">(opens in a new tab)</span>}
             </a>
           </span>
           <button
@@ -187,6 +188,7 @@ export function Navbar() {
                 className={buttonClasses("ink", "lg", "mt-10 w-full")}
               >
                 {site.cta.primary}
+                {bookExternal && <span className="sr-only">(opens in a new tab)</span>}
               </a>
             </div>
           </motion.div>

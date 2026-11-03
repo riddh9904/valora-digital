@@ -1,4 +1,3 @@
-
 export type Channel = "meta" | "google";
 
 export interface NavItem {
@@ -15,7 +14,7 @@ export interface Service {
 
 export interface Industry {
   id: string;
-  /** Short label used in tabs, the footer and the enquiry form. */
+  /** Short label used in the industry columns, the footer and the enquiry form. */
   label: string;
   title: string;
   /** One-line summary shown in the industry column and disclosure. */

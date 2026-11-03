@@ -42,6 +42,7 @@
   --color-mist: var(--brand-mist);
   --color-graphite: var(--brand-graphite);
   --color-line: var(--brand-line);
+  --color-field: #8a9096; /* control borders, 3.2:1 on white */
   --color-signal: var(--brand-signal);
   --color-signal-bright: var(--brand-signal-bright);
 
@@ -190,7 +191,7 @@
   .field-input {
     width: 100%;
     border-radius: var(--radius-md);
-    border: 1px solid var(--brand-line);
+    border: 1px solid #8a9096; /* 3.2:1 on white (WCAG 1.4.11) */
     background: #fff;
     color: var(--brand-ink);
     padding: 0.75rem 0.9rem;

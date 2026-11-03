@@ -22,7 +22,7 @@ const challenges = [
 
 export function Problem() {
   return (
-    <section aria-labelledby="problem-title" className="section-pad bg-white">
+    <section id="problem" aria-labelledby="problem-title" className="section-pad bg-white">
       <div className="container-site">
         <SectionHeading
           id="problem-title"

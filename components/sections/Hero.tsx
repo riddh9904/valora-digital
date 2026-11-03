@@ -16,6 +16,7 @@ export function Hero() {
   return (
     <>
       <section
+        id="hero"
         aria-labelledby="hero-title"
         className="container-site pt-[calc(var(--header-h)+48px)] pb-12 sm:pt-[calc(var(--header-h)+72px)] sm:pb-16 sm:text-center"
       >

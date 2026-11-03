@@ -35,7 +35,7 @@ function Cta({ ind, className = "" }: { ind: Industry; className?: string }) {
     <button
       type="button"
       onClick={() => prefillEnquiry({ industry: ind.id })}
-      className={`cursor-pointer text-left text-[0.92rem] font-medium text-ink-900 hover:text-signal ${className}`}
+      className={`inline-flex min-h-11 cursor-pointer items-center text-left text-[0.92rem] sm:min-h-0 sm:inline sm:items-baseline font-medium text-ink-900 hover:text-signal ${className}`}
     >
       <span className="link-underline">Talk to us about {CTA_NAME[ind.id] ?? "your sector"}</span>
       {/* No-break space keeps the arrow with the last word when the label wraps. */}
