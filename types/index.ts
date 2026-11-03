@@ -1,4 +1,3 @@
-import type { LucideIcon } from "lucide-react";
 
 export type Channel = "meta" | "google";
 
@@ -8,12 +7,10 @@ export interface NavItem {
 }
 
 export interface Service {
-  id: string;
+  id: "acquire" | "convert" | "measure";
   title: string;
-  icon: LucideIcon;
-  description: string;
-  benefit: string;
-  capabilities: string[];
+  summary: string;
+  includes: string[];
 }
 
 export interface Industry {
@@ -21,6 +18,8 @@ export interface Industry {
   /** Short label used in tabs, the footer and the enquiry form. */
   label: string;
   title: string;
+  /** One-line summary shown in the industry column and disclosure. */
+  summary: string;
   problem: string;
   focus: string[];
   services: string[];

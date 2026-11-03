@@ -12,14 +12,6 @@
  *    illustrative on the page.
  * ─────────────────────────────────────────────────────────────────────────────
  */
-import {
-  ChartNoAxesCombined,
-  Crosshair,
-  Magnet,
-  MousePointerClick,
-  ShoppingBag,
-  Workflow,
-} from "lucide-react";
 import type {
   CaseStudy,
   Founder,
@@ -99,59 +91,25 @@ export const navItems: NavItem[] = [
 
 export const services: Service[] = [
   {
-    id: "paid-media",
-    title: "Paid media management",
-    icon: Crosshair,
-    description:
-      "Meta Ads and Google Ads management: campaign structure, targeting, budget allocation and continuous optimization.",
-    benefit:
-      "Budget moves toward the campaigns that produce qualified demand, not just cheap clicks.",
-    capabilities: ["Meta Ads", "Google Ads", "Budget pacing", "Account structure"],
+    id: "acquire",
+    title: "Acquire",
+    summary:
+      "Meta and Google Ads with Advantage+, Performance Max and Smart Bidding, steered by qualified-lead and sales signals. AI-generated copy, image and video variations, tested against each other.",
+    includes: ["Meta Ads", "Google Ads", "Creative testing", "Catalogue campaigns"],
   },
   {
-    id: "lead-generation",
-    title: "Lead generation",
-    icon: Magnet,
-    description:
-      "Campaigns designed to generate relevant enquiries and qualified opportunities, with lead quality tracked from day one.",
-    benefit: "A sales pipeline judged by fit and intent, not form-fill volume.",
-    capabilities: ["Lead forms", "Qualification criteria", "Lead scoring inputs"],
+    id: "convert",
+    title: "Convert",
+    summary:
+      "Landing pages, structured A/B tests, AI lead scoring and CRM routing, so the best leads get the fastest reply.",
+    includes: ["Landing pages", "A/B testing", "Lead scoring", "CRM routing"],
   },
   {
-    id: "cro",
-    title: "Conversion rate optimization",
-    icon: MousePointerClick,
-    description:
-      "Landing-page analysis, funnel improvements, structured experimentation and conversion diagnostics.",
-    benefit: "More customers from the traffic you already pay for.",
-    capabilities: ["Landing pages", "A/B testing", "Funnel diagnostics"],
-  },
-  {
-    id: "analytics",
-    title: "Marketing analytics",
-    icon: ChartNoAxesCombined,
-    description:
-      "Conversion tracking, attribution analysis, reporting dashboards and acquisition economics.",
-    benefit: "Decisions grounded in numbers your team can trust and explain.",
-    capabilities: ["Tracking setup", "Attribution", "Dashboards", "CAC & payback"],
-  },
-  {
-    id: "ecommerce",
-    title: "E-commerce growth",
-    icon: ShoppingBag,
-    description:
-      "Customer acquisition, creative testing, purchase-funnel optimization and campaign performance analysis for D2C brands.",
-    benefit: "Profitable acquisition measured against margin, not platform-reported ROAS alone.",
-    capabilities: ["Creative testing", "Catalogue campaigns", "Checkout funnel"],
-  },
-  {
-    id: "automation",
-    title: "Marketing automation",
-    icon: Workflow,
-    description:
-      "Lead routing, CRM workflows, follow-up automation and lead lifecycle reporting.",
-    benefit: "Faster follow-up and a clear record of what happens after the enquiry.",
-    capabilities: ["Lead routing", "CRM workflows", "Lifecycle reporting"],
+    id: "measure",
+    title: "Measure",
+    summary:
+      "Tracking set up properly, platform numbers reconciled with the CRM, AI-assisted summaries of what changed, and a weekly report on cost per qualified lead, acquisition cost and payback.",
+    includes: ["GA4 & Tag Manager", "Offline conversions", "Dashboards", "CAC & payback"],
   },
 ];
 
@@ -168,7 +126,8 @@ export const industries: Industry[] = [
       "Campaign and project-level tracking",
       "Lead follow-up measurement",
     ],
-    services: ["Lead generation", "Marketing automation", "Marketing analytics"],
+    summary: "Enquiries are cheap. Site visits are what count.",
+    services: ["Acquire", "Convert", "Measure"],
     funnel: ["Enquiries", "Qualified", "Site visits", "Bookings"],
   },
   {
@@ -183,7 +142,8 @@ export const industries: Industry[] = [
       "Application funnel visibility",
       "Admission conversion measurement",
     ],
-    services: ["Lead generation", "Conversion rate optimization", "Marketing analytics"],
+    summary: "Long decisions, many sources. We track which ones lead to applications.",
+    services: ["Acquire", "Convert", "Measure"],
     funnel: ["Enquiries", "Counselled", "Applications", "Enrolments"],
   },
   {
@@ -198,7 +158,8 @@ export const industries: Industry[] = [
       "Purchase conversion",
       "Acquisition economics",
     ],
-    services: ["Paid media management", "E-commerce growth", "Conversion rate optimization"],
+    summary: "Acquisition judged against first-order margin, not platform ROAS alone.",
+    services: ["Acquire", "Convert", "Measure"],
     funnel: ["Sessions", "Add to cart", "Checkout", "Orders"],
   },
   {
@@ -213,7 +174,8 @@ export const industries: Industry[] = [
       "Enquiry-to-customer conversion",
       "Campaign profitability measurement",
     ],
-    services: ["Paid media management", "Lead generation", "Marketing automation"],
+    summary: "Missed calls quietly erase a campaign’s value.",
+    services: ["Acquire", "Convert"],
     funnel: ["Enquiries", "Contacted", "Appointments", "Customers"],
   },
 ];
