@@ -1,62 +1,76 @@
-import { site } from "@/config/site";
+import Link from "next/link";
+import { proofPoints } from "@/config/site";
 import { BookCallButton } from "@/components/ui/BookCallButton";
-import { ButtonLink } from "@/components/ui/Button";
-import { HeroDashboard } from "@/components/dashboard/HeroDashboard";
+import { HeroDemoCard } from "@/components/dashboard/HeroDemoCard";
+
+const commitments = [
+  { title: "Cost per qualified lead", text: "The headline metric, agreed with your sales team." },
+  { title: "Reconciled with your CRM", text: "Platform numbers checked against real sales." },
+  { title: "Caveats in writing", text: "Where the data runs out, we say so." },
+];
 
 export function Hero() {
+  // Only verified proof points with a stated source are ever rendered.
+  const verified = proofPoints.filter((p) => p.verified && p.source.trim().length > 0);
+
   return (
-    <section
-      aria-labelledby="hero-title"
-      className="dark-surface relative isolate overflow-hidden bg-ink-950 pt-[calc(var(--header-h)+36px)] pb-24 sm:pt-[calc(var(--header-h)+56px)] text-white sm:pb-28 lg:pt-[calc(var(--header-h)+72px)] lg:pb-36"
-    >
-      {/* Quiet structure: hairline grid + one restrained colour field */}
-      <div aria-hidden className="bg-grid-dark mask-fade-b absolute inset-0 -z-10 opacity-70" />
-      <div
-        aria-hidden
-        className="absolute -top-40 right-[-10%] -z-10 h-[620px] w-[720px] rounded-full opacity-[0.22] blur-[120px]"
-        style={{ background: "radial-gradient(closest-side, var(--brand-accent), transparent)" }}
-      />
-      <div
-        aria-hidden
-        className="absolute top-[38%] right-[18%] -z-10 h-[320px] w-[420px] rounded-full opacity-[0.14] blur-[110px]"
-        style={{ background: "radial-gradient(closest-side, var(--brand-violet), transparent)" }}
-      />
-
-      <div className="container-site grid items-center gap-10 sm:gap-16 lg:grid-cols-[1.02fr_1fr] lg:gap-14 xl:gap-20">
-        <div className="max-w-2xl">
-          <p className="eyebrow flex flex-wrap items-center gap-x-2 gap-y-1 text-accent-soft">
-            <span>Performance marketing</span>
-            <span aria-hidden className="text-slate-600">·</span>
-            <span>Conversion intelligence</span>
-          </p>
-          <h1 id="hero-title" className="display-xl mt-5 text-white sm:mt-7">
-            Turn marketing spend into{" "}
-            <span className="bg-gradient-to-r from-[#a9bdff] via-[#c7d3ff] to-[#c4b5ff] bg-clip-text text-transparent">
-              measurable growth
-            </span>
-          </h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed sm:mt-7 text-slate-300 sm:text-xl sm:leading-relaxed">
-            We help ambitious businesses acquire better customers, convert more leads, and make
-            smarter marketing decisions through performance-driven campaigns and data-led
-            optimization.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
-            <BookCallButton size="lg" />
-            <ButtonLink href="/#approach" variant="light" size="lg" icon="none">
-              {site.cta.secondary}
-            </ButtonLink>
-          </div>
-          <p className="mt-10 hidden flex-wrap items-center sm:flex gap-x-3 gap-y-1 border-t border-white/[0.08] pt-6 text-sm text-slate-400">
-            <span>Paid acquisition.</span>
-            <span>Lead conversion.</span>
-            <span>Transparent measurement.</span>
-          </p>
+    <>
+      <section
+        aria-labelledby="hero-title"
+        className="container-site pt-[calc(var(--header-h)+48px)] pb-12 sm:pt-[calc(var(--header-h)+72px)] sm:pb-16 sm:text-center"
+      >
+        <p className="kicker inline-flex items-center gap-2.5 text-graphite">
+          <span aria-hidden className="live-dot size-1.5 shrink-0 rounded-full bg-signal-bright" />
+          <span>
+            AI-driven performance marketing<span className="hidden sm:inline"> · Dubai and Gurugram</span>
+          </span>
+        </p>
+        <h1 id="hero-title" className="display-xl mt-6 max-w-[16ch] text-balance text-ink-900 sm:mx-auto">
+          Ad platforms run on AI. We teach it what a customer is.
+        </h1>
+        <p className="mt-6 max-w-[60ch] text-[1.06rem] leading-relaxed text-graphite sm:mx-auto sm:text-lg">
+          Valora runs Meta and Google Ads for businesses in India, the UAE and beyond. We train the platforms’ AI on
+          qualified leads and sales instead of form fills, test AI-generated creative at speed, and report what every
+          customer cost.
+        </p>
+        <div className="mt-9 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center sm:gap-6">
+          <BookCallButton size="lg" />
+          <Link href="/#measurement" className="link-underline self-start text-[0.95rem] font-medium text-ink-900 sm:self-auto">
+            See the live report →
+          </Link>
         </div>
+      </section>
 
-        <div className="lg:pl-4 xl:pr-6">
-          <HeroDashboard />
+      <div id="hero-demo" className="hero-demo-band">
+        <div className="container-site max-w-[1080px]">
+          <HeroDemoCard />
         </div>
       </div>
-    </section>
+
+      <div className="bg-mist">
+        <div className="container-site py-12">
+          <ul className="grid gap-6 sm:grid-cols-3 sm:gap-10">
+            {commitments.map((c) => (
+              <li key={c.title} className="border-t border-ink-900 pt-4">
+                <p className="font-medium tracking-[-0.01em] text-ink-900">{c.title}</p>
+                <p className="mt-1 text-[0.92rem] text-graphite">{c.text}</p>
+              </li>
+            ))}
+          </ul>
+
+          {verified.length > 0 && (
+            <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-line pt-8 lg:grid-cols-4">
+              {verified.map((p) => (
+                <div key={p.label}>
+                  <dt className="text-sm text-graphite">{p.label}</dt>
+                  <dd className="tabular mt-1 font-mono text-3xl font-medium tracking-tight text-ink-900">{p.value}</dd>
+                  <dd className="mt-1 text-xs text-graphite">Source: {p.source}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </div>
+      </div>
+    </>
   );
 }

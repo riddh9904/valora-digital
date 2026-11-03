@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 export function Reveal({
   children,
   delay = 0,
-  y = 18,
+  y = 8,
   className,
   as = "div",
 }: {

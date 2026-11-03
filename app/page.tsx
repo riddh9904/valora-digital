@@ -1,5 +1,4 @@
 import { Hero } from "@/components/sections/Hero";
-import { CredibilityStrip } from "@/components/sections/CredibilityStrip";
 import { Problem } from "@/components/sections/Problem";
 import { Services } from "@/components/sections/Services";
 import { FullFunnel } from "@/components/sections/FullFunnel";
@@ -17,7 +16,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <CredibilityStrip />
       <Problem />
       <Services />
       <FullFunnel />

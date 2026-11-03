@@ -212,6 +212,11 @@
     );
   }
 
+  /* White hero hands over to mist behind the demo card. */
+  .hero-demo-band {
+    background: linear-gradient(#ffffff 0 42%, var(--brand-mist) 42%);
+  }
+
   .live-dot {
     box-shadow: 0 0 0 3px rgb(18 184 134 / 0.2);
     animation: live-pulse 2.4s ease-in-out infinite;
