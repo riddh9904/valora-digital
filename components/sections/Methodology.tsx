@@ -3,22 +3,22 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 const steps = [
   {
     title: "Discover",
-    text: "Understand business goals, customer economics, current marketing activity and conversion challenges.",
+    text: "Your goals, margins and sales process, and an audit of your tracking.",
     outputs: ["Goals and unit economics", "Tracking audit", "Funnel baseline"],
   },
   {
     title: "Plan",
-    text: "Define campaign objectives, measurement requirements, target audiences and an execution plan.",
+    text: "Channel and budget plan, a measurement plan, and the first tests to run.",
     outputs: ["Channel and budget plan", "Measurement plan", "First test hypotheses"],
   },
   {
     title: "Launch",
-    text: "Launch campaigns, implement tracking, and test creative and landing pages.",
+    text: "Campaigns live, conversion tracking verified, first creative and landing-page tests running.",
     outputs: ["Live campaigns", "Verified conversion tracking", "First creative and landing-page tests"],
   },
   {
     title: "Review",
-    text: "Review performance, identify opportunities and improve the strategy based on evidence.",
+    text: "What happened, why we think it happened, and what changes next, with owners and dates. Then repeat.",
     outputs: ["Performance review", "Documented test results", "Updated priorities"],
   },
 ];
