@@ -48,7 +48,7 @@ export const insights: Insight[] = [
       {
         heading: "Feed quality back to the platforms",
         paragraphs: [
-          "Meta and Google both optimize toward whatever conversion event you give them. If that event is a form submission, they will find people who submit forms. Where the data allows it, importing qualified-lead or sale events (through offline conversion imports or CRM integrations) lets the platforms optimize toward the outcome you care about.",
+          "Meta and Google both optimise toward whatever conversion event you give them. If that event is a form submission, they will find people who submit forms. Where the data allows it, importing qualified-lead or sale events (through offline conversion imports or CRM integrations) lets the platforms optimise toward the outcome you care about.",
           "This needs volume and consistency to work well, and it depends on the sales team updating lead statuses promptly. That operational habit is often the real bottleneck, and worth solving first.",
         ],
       },
@@ -130,7 +130,7 @@ export const insights: Insight[] = [
     readingMinutes: 6,
     published: "2026-10-12",
     summary:
-      "Duplicate events, missing UTMs, the wrong optimization goal, and more. Common tracking errors that quietly mislead campaign decisions, and how to check for each.",
+      "Duplicate events, missing UTMs, the wrong optimisation goal, and more. Common tracking errors that quietly mislead campaign decisions, and how to check for each.",
     sections: [
       {
         paragraphs: [
@@ -145,9 +145,9 @@ export const insights: Insight[] = [
         ],
       },
       {
-        heading: "2. Optimizing for the wrong event",
+        heading: "2. Optimising for the wrong event",
         paragraphs: [
-          "If a campaign is told to optimize for page views, button clicks or “add to cart”, it will find people who do those things, which may not be the people who buy. Micro-conversions can help new campaigns gather data, but the primary optimization goal should be as close to real business value as your volume allows.",
+          "If a campaign is told to optimise for page views, button clicks or “add to cart”, it will find people who do those things, which may not be the people who buy. Micro-conversions can help new campaigns gather data, but the primary optimisation goal should be as close to real business value as your volume allows.",
           "How to check: list the primary conversion action for every active campaign and confirm each one is the outcome you would actually pay for.",
         ],
       },

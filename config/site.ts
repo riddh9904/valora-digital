@@ -222,7 +222,7 @@ export const caseStudies: CaseStudy[] = [
     context:
       "A services business generates steady landing-page traffic, but booked appointments lag well behind enquiries.",
     objective:
-      "Locate the largest drop-off between first click and booked appointment, then prioritize fixes by expected impact.",
+      "Locate the largest drop-off between first click and booked appointment, then prioritise fixes by expected impact.",
     work: [
       "Map every step from ad click to appointment",
       "Instrument form starts, submissions and follow-up events",
@@ -239,7 +239,7 @@ export const caseStudies: CaseStudy[] = [
     category: "Acquisition economics",
     title: "Connecting ad spend to first-order margin",
     context:
-      "A D2C brand optimizes campaigns on platform-reported ROAS, while finance reviews contribution margin from a separate system.",
+      "A D2C brand optimises campaigns on platform-reported ROAS, while finance reviews contribution margin from a separate system.",
     objective:
       "Create a weekly view that compares spend with orders, margin and new-customer share by channel.",
     work: [

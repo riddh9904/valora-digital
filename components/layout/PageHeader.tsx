@@ -1,23 +1,23 @@
 import type { ReactNode } from "react";
+import { Kicker } from "@/components/ui/SectionHeading";
 
 export function PageHeader({
-  eyebrow,
+  kicker,
   title,
   intro,
   children,
 }: {
-  eyebrow?: string;
+  kicker?: string;
   title: string;
   intro?: ReactNode;
   children?: ReactNode;
 }) {
   return (
-    <header className="dark-surface relative isolate overflow-hidden bg-ink-950 pt-[calc(var(--header-h)+64px)] pb-16 text-white sm:pb-20">
-      <div aria-hidden className="bg-grid-dark mask-fade-b absolute inset-0 -z-10 opacity-60" />
+    <header className="bg-white pt-[calc(var(--header-h)+56px)] pb-12 sm:pb-16">
       <div className="container-site max-w-4xl">
-        {eyebrow && <p className="eyebrow text-accent-soft">{eyebrow}</p>}
-        <h1 className="display-lg mt-5">{title}</h1>
-        {intro && <div className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">{intro}</div>}
+        {kicker && <Kicker>{kicker}</Kicker>}
+        <h1 className="display-lg mt-4 text-ink-900">{title}</h1>
+        {intro && <div className="mt-6 max-w-2xl text-lg leading-relaxed text-graphite">{intro}</div>}
         {children}
       </div>
     </header>
