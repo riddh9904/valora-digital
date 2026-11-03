@@ -45,7 +45,7 @@ export function SectionHeading({
   const introEl = intro && (
     <p
       className={`text-lg leading-relaxed ${center ? "mx-auto" : ""} ${split ? "" : "mt-6 max-w-2xl"} ${
-        dark ? "text-slate-300" : "text-graphite"
+        dark ? "text-white/70" : "text-graphite"
       }`}
     >
       {intro}

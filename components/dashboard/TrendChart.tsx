@@ -23,6 +23,7 @@ const SERIES: Record<Channel, string> = {
 function formatValue(metric: TrendMetric, v: number, compact = false) {
   if (metric === "leads") return formatNumber(v, { compact });
   if (metric === "spend") return formatCurrency(v, { compact, decimals: 0 });
+  // cpl and cpql
   return formatCurrency(v, { decimals: compact ? 0 : 2 });
 }
 
@@ -34,14 +35,14 @@ function TrendTooltip({
 }: TooltipContentProps<number, string> & { metric: TrendMetric }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="min-w-[160px] rounded-[10px] border border-white/10 bg-ink-950/95 px-3 py-2.5 text-xs shadow-xl backdrop-blur">
-      <p className="mb-1.5 font-mono text-[0.68rem] text-slate-400">
+    <div className="min-w-[160px] rounded-md border border-white/10 bg-ink-950/95 px-3 py-2.5 text-xs shadow-xl backdrop-blur">
+      <p className="mb-1.5 font-mono text-[0.68rem] text-white/60">
         {typeof label === "string" ? formatShortDate(label) : label}
       </p>
       <ul className="space-y-1">
         {payload.map((p) => (
           <li key={String(p.dataKey)} className="flex items-center justify-between gap-4">
-            <span className="flex items-center gap-1.5 text-slate-300">
+            <span className="flex items-center gap-1.5 text-white/70">
               <span aria-hidden className="h-0.5 w-3 rounded-full" style={{ background: p.color }} />
               {CHANNEL_LABEL[p.dataKey as Channel]}
             </span>
@@ -71,7 +72,7 @@ export default function TrendChart({
         <XAxis
           dataKey="date"
           tickFormatter={formatShortDate}
-          tick={{ fill: "#94a3b8", fontSize: 11 }}
+          tick={{ fill: "rgb(255 255 255 / 0.6)", fontSize: 11 }}
           axisLine={{ stroke: "rgb(255 255 255 / 0.12)" }}
           tickLine={false}
           minTickGap={28}
@@ -79,7 +80,7 @@ export default function TrendChart({
         />
         <YAxis
           width={52}
-          tick={{ fill: "#94a3b8", fontSize: 11 }}
+          tick={{ fill: "rgb(255 255 255 / 0.6)", fontSize: 11 }}
           axisLine={false}
           tickLine={false}
           tickFormatter={(v: number) => formatValue(metric, v, true)}
@@ -100,7 +101,7 @@ export default function TrendChart({
             stroke={SERIES[c]}
             strokeWidth={2}
             dot={false}
-            activeDot={{ r: 4.5, stroke: "#0e1530", strokeWidth: 2, fill: SERIES[c] }}
+            activeDot={{ r: 4.5, stroke: "#0B0C0E", strokeWidth: 2, fill: SERIES[c] }}
             connectNulls
             animationDuration={700}
           />

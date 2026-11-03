@@ -1,9 +1,7 @@
 import { Hero } from "@/components/sections/Hero";
 import { Problem } from "@/components/sections/Problem";
 import { Services } from "@/components/sections/Services";
-import { FullFunnel } from "@/components/sections/FullFunnel";
-import { AnalyticsShowcase } from "@/components/sections/AnalyticsShowcase";
-import { BeyondClick } from "@/components/sections/BeyondClick";
+import { Measurement } from "@/components/sections/Measurement";
 import { Industries } from "@/components/sections/Industries";
 import { Methodology } from "@/components/sections/Methodology";
 import { Projects } from "@/components/sections/Projects";
@@ -18,9 +16,7 @@ export default function HomePage() {
       <Hero />
       <Problem />
       <Services />
-      <FullFunnel />
-      <AnalyticsShowcase />
-      <BeyondClick />
+      <Measurement />
       <Industries />
       <Methodology />
       <Projects />

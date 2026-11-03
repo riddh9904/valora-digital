@@ -1,8 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useId, useMemo, useState } from "react";
-import { ArrowDown, ArrowDownRight, ArrowUp, ArrowUpRight, Info } from "lucide-react";
+import { useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { ArrowDown, ArrowDownRight, ArrowUp, ArrowUpRight } from "lucide-react";
 import {
   byCampaign,
   dailyByChannel,
@@ -25,11 +25,13 @@ import {
   formatShortDate,
 } from "@/lib/format";
 import type { Channel } from "@/types";
+import { SampleDataLabel } from "@/components/ui/SampleDataLabel";
+import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 
 const TrendChart = dynamic(() => import("./TrendChart"), {
   ssr: false,
   loading: () => (
-    <div className="h-full w-full animate-pulse rounded-[10px] bg-white/[0.03]" aria-hidden />
+    <div className="h-full w-full animate-pulse rounded-md bg-white/[0.03]" aria-hidden />
   ),
 });
 
@@ -44,10 +46,15 @@ const CHANNELS: { value: ChannelFilter; label: string }[] = [
   { value: "google", label: "Google Ads" },
 ];
 const METRICS: { value: TrendMetric; label: string }[] = [
+  { value: "cpql", label: "Cost per qualified lead" },
   { value: "leads", label: "Leads" },
   { value: "spend", label: "Spend" },
   { value: "cpl", label: "Cost per lead" },
 ];
+const fmtSpend = (n: number) => formatCurrency(n, { compact: true });
+const fmtCompact = (n: number) => formatNumber(n, { compact: true });
+const fmtCurrency = (n: number) => formatCurrency(n);
+const fmtRate = (n: number) => formatPercent(n);
 const FUNNEL_RAMP = ["#9db8ff", "#7097ff", "#4c7dff", "#3560d9", "#2647a8"];
 
 // ── Small building blocks ────────────────────────────────────────────────────
@@ -63,19 +70,39 @@ function Segmented<T extends string | number>({
   value: T;
   onChange: (v: T) => void;
 }) {
+  const radios = useRef<(HTMLButtonElement | null)[]>([]);
+
+  function onKey(e: KeyboardEvent, index: number) {
+    const last = options.length - 1;
+    let next: number;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") next = index === last ? 0 : index + 1;
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = index === 0 ? last : index - 1;
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = last;
+    else return;
+    e.preventDefault();
+    onChange(options[next].value);
+    radios.current[next]?.focus();
+  }
+
   return (
-    <div role="radiogroup" aria-label={label} className="inline-flex rounded-full border border-white/10 bg-white/[0.03] p-1">
-      {options.map((o) => {
+    <div role="radiogroup" aria-label={label} className="inline-flex flex-wrap rounded-md border border-white/10 bg-ink-900 p-1">
+      {options.map((o, i) => {
         const selected = o.value === value;
         return (
           <button
             key={String(o.value)}
+            ref={(el) => {
+              radios.current[i] = el;
+            }}
             type="button"
             role="radio"
             aria-checked={selected}
+            tabIndex={selected ? 0 : -1}
+            onKeyDown={(e) => onKey(e, i)}
             onClick={() => onChange(o.value)}
-            className={`rounded-full px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors ${
-              selected ? "bg-white text-ink-900" : "text-slate-300 hover:text-white"
+            className={`rounded px-3 py-1.5 font-mono text-xs font-medium whitespace-nowrap transition-colors ${
+              selected ? "bg-white text-ink-950" : "text-white/70 hover:text-white"
             }`}
           >
             {o.label}
@@ -88,14 +115,14 @@ function Segmented<T extends string | number>({
 
 function Delta({ value, upIsGood }: { value: number; upIsGood: boolean | null }) {
   if (!Number.isFinite(value) || value === 0)
-    return <span className="font-mono text-[0.7rem] text-slate-500">no change</span>;
+    return <span className="font-mono text-[0.7rem] text-white/50">no change</span>;
   const up = value > 0;
   const good = upIsGood === null ? null : up === upIsGood;
   const Icon = up ? ArrowUpRight : ArrowDownRight;
   return (
     <span
       className={`inline-flex items-center gap-0.5 font-mono text-[0.7rem] ${
-        good === null ? "text-slate-400" : good ? "text-emerald-300" : "text-amber-300"
+        good === null ? "text-white/60" : good ? "text-signal-bright" : "text-amber-300"
       }`}
     >
       <Icon aria-hidden className="size-3" />
@@ -133,7 +160,7 @@ function SortHeader({
       <button
         type="button"
         onClick={() => onSort(k)}
-        className={`inline-flex items-center gap-1 whitespace-nowrap transition-colors hover:text-white ${active ? "text-white" : ""}`}
+        className={`inline-flex items-center gap-1 whitespace-nowrap transition-colors hover:text-white ${active ? "text-signal-bright" : ""}`}
       >
         {children}
         {active ? (
@@ -150,7 +177,7 @@ function SortHeader({
 
 export function AnalyticsDemo() {
   const [filters, setFilters] = useState<Filters>({ range: 30, channel: "all", campaignId: "all" });
-  const [metric, setMetric] = useState<TrendMetric>("leads");
+  const [metric, setMetric] = useState<TrendMetric>("cpql");
   const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({ key: "spend", dir: "desc" });
   const campaignSelectId = useId();
 
@@ -188,12 +215,12 @@ export function AnalyticsDemo() {
   const { now, prev } = data;
 
   const kpis = [
-    { label: "Spend", value: formatCurrency(now.spend, { compact: true }), delta: relativeChange(now.spend, prev.spend), upIsGood: null },
-    { label: "Impressions", value: formatNumber(now.impressions, { compact: true }), delta: relativeChange(now.impressions, prev.impressions), upIsGood: true },
-    { label: "Clicks", value: formatNumber(now.clicks, { compact: true }), delta: relativeChange(now.clicks, prev.clicks), upIsGood: true },
-    { label: "Leads", value: formatNumber(now.leads), delta: relativeChange(now.leads, prev.leads), upIsGood: true },
-    { label: "Cost per lead", value: formatCurrency(now.cpl), delta: relativeChange(now.cpl, prev.cpl), upIsGood: false },
-    { label: "Click-to-lead rate", value: formatPercent(now.cvr), delta: relativeChange(now.cvr, prev.cvr), upIsGood: true },
+    { label: "Spend", value: now.spend, format: fmtSpend, delta: relativeChange(now.spend, prev.spend), upIsGood: null },
+    { label: "Clicks", value: now.clicks, format: fmtCompact, delta: relativeChange(now.clicks, prev.clicks), upIsGood: true },
+    { label: "Leads", value: now.leads, format: formatNumber, delta: relativeChange(now.leads, prev.leads), upIsGood: true },
+    { label: "Cost per qualified lead", value: now.cpql, format: fmtCurrency, delta: relativeChange(now.cpql, prev.cpql), upIsGood: false },
+    { label: "Cost per lead", value: now.cpl, format: fmtCurrency, delta: relativeChange(now.cpl, prev.cpl), upIsGood: false },
+    { label: "Click-to-lead rate", value: now.cvr, format: fmtRate, delta: relativeChange(now.cvr, prev.cvr), upIsGood: true },
   ] as const;
 
   const setChannel = (channel: ChannelFilter) =>
@@ -211,25 +238,18 @@ export function AnalyticsDemo() {
 
 
   return (
-    <div className="rounded-[var(--radius-xl)] border border-white/[0.08] bg-ink-850 shadow-[var(--shadow-panel)]">
-      {/* Disclosure, placed first so it is read before any figure */}
-      <div className="flex items-start gap-2.5 rounded-t-[var(--radius-xl)] border-b border-white/[0.07] bg-white/[0.03] px-5 py-3 text-xs leading-relaxed text-slate-300 sm:px-7">
-        <Info aria-hidden className="mt-0.5 size-3.5 shrink-0 text-accent-soft" />
-        <p>
-          <strong className="font-medium text-white">Demonstration dashboard.</strong> All figures are
-          illustrative and do not represent actual client performance.
-        </p>
+    <div className="relative mt-14 rounded-md border border-white/10 bg-ink-850 shadow-[var(--shadow-panel)]">
+      <div className="absolute -top-3 left-5 sm:left-7">
+        <SampleDataLabel />
       </div>
 
-      <div className="p-5 sm:p-7">
+      <div className="p-5 pt-8 sm:p-7 sm:pt-9">
         {/* Filters: one row above the charts */}
         <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <div>
-            <h3 className="font-display text-lg font-semibold tracking-tight text-white">
-              Campaign performance
-            </h3>
-            <p className="mt-0.5 font-mono text-[0.7rem] text-slate-400">
-              {formatShortDate(data.from)} – {formatShortDate(data.to)} · compared with the previous {filters.range} days
+            <h3 className="text-lg font-medium tracking-tight text-white">Campaign performance</h3>
+            <p className="mt-0.5 font-mono text-[0.7rem] text-white/60">
+              {formatShortDate(data.from)} – {formatShortDate(data.to)} · compared with the previous {filters.range} days · generated data, not client results
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2.5">
@@ -247,7 +267,7 @@ export function AnalyticsDemo() {
               id={campaignSelectId}
               value={filters.campaignId}
               onChange={(e) => setFilters((f) => ({ ...f, campaignId: e.target.value }))}
-              className="field-input !w-auto !rounded-full !py-2 !pl-4 text-xs"
+              className="rounded-md border border-white/10 bg-ink-900 px-3 py-2.5 font-mono text-xs text-white"
             >
               <option value="all">All campaigns</option>
               {campaignOptions.map((c) => (
@@ -260,12 +280,12 @@ export function AnalyticsDemo() {
         </div>
 
         {/* KPI tiles */}
-        <dl aria-live="polite" className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-md)] border border-white/[0.07] bg-white/[0.07] sm:grid-cols-3 xl:grid-cols-6">
+        <dl aria-live="polite" className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-white/[0.08] bg-white/[0.08] sm:grid-cols-3 xl:grid-cols-6">
           {kpis.map((k) => (
             <div key={k.label} className="bg-ink-850 p-4 sm:p-5">
-              <dt className="text-xs text-slate-400">{k.label}</dt>
-              <dd className="mt-2 font-display text-2xl font-semibold tracking-tight text-white tabular">
-                {k.value}
+              <dt className="text-xs text-white/60">{k.label}</dt>
+              <dd className="mt-2 font-mono text-2xl font-medium tracking-[-0.02em] text-white">
+                <AnimatedNumber value={k.value} format={k.format} />
               </dd>
               <dd className="mt-1.5">
                 <Delta value={k.delta} upIsGood={k.upIsGood} />
@@ -276,23 +296,23 @@ export function AnalyticsDemo() {
 
         <div className="mt-5 grid gap-5 lg:grid-cols-[1.65fr_1fr]">
           {/* Trend */}
-          <section aria-label="Performance trend" className="flex flex-col rounded-[var(--radius-md)] border border-white/[0.07] p-4 sm:p-5">
+          <section aria-label="Performance trend" className="flex flex-col rounded-md border border-white/[0.08] p-4 sm:p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h4 className="text-sm font-medium text-white">
                   {METRICS.find((m) => m.value === metric)?.label} per day
                 </h4>
                 {data.channels.length > 1 ? (
-                  <ul className="mt-1.5 flex gap-4 text-xs text-slate-300" aria-label="Legend">
+                  <ul className="mt-1.5 flex gap-4 text-xs text-white/70" aria-label="Legend">
                     {data.channels.map((c) => (
                       <li key={c} className="flex items-center gap-1.5">
-                        <span aria-hidden className={`h-0.5 w-3.5 rounded-full ${c === "meta" ? "bg-meta" : "bg-google"}`} />
+                        <span aria-hidden className={`h-0.5 w-3.5 rounded-sm ${c === "meta" ? "bg-meta" : "bg-google"}`} />
                         {CHANNEL_LABEL[c]}
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="mt-1.5 text-xs text-slate-400">{data.channels.map((c) => CHANNEL_LABEL[c]).join("")}</p>
+                  <p className="mt-1.5 text-xs text-white/60">{data.channels.map((c) => CHANNEL_LABEL[c]).join("")}</p>
                 )}
               </div>
               <Segmented label="Trend metric" options={METRICS} value={metric} onChange={setMetric} />
@@ -300,53 +320,53 @@ export function AnalyticsDemo() {
             <div
               className="mt-4 h-[240px] sm:h-[280px] lg:h-auto lg:min-h-[280px] lg:flex-1"
               role="img"
-              aria-label={`Line chart of ${metric === "cpl" ? "cost per lead" : metric} per day by channel, sample data. Exact values are listed in the campaign table below.`}
+              aria-label={`Line chart of ${METRICS.find((m) => m.value === metric)?.label.toLowerCase()} per day by channel, sample data. Exact values are listed in the campaign table below.`}
             >
               <TrendChart data={data.trend} channels={data.channels} metric={metric} />
             </div>
           </section>
 
           {/* Funnel */}
-          <section aria-label="Lead funnel" className="rounded-[var(--radius-md)] border border-white/[0.07] p-4 sm:p-5">
+          <section aria-label="Lead funnel" className="rounded-md border border-white/[0.08] p-4 sm:p-5">
             <h4 className="text-sm font-medium text-white">Lead funnel</h4>
-            <p className="mt-1.5 text-xs text-slate-400">Bar length shows conversion from the previous stage</p>
+            <p className="mt-1.5 text-xs text-white/60">Bar length shows conversion from the previous stage</p>
             <ol className="mt-5 space-y-3.5">
               {data.stages.map((s, i) => (
                 <li key={s.key}>
                   <div className="flex items-baseline justify-between gap-3 text-sm">
-                    <span className="text-slate-300">{s.label}</span>
+                    <span className="text-white/70">{s.label}</span>
                     <span className="font-mono text-white tabular">{formatNumber(s.value)}</span>
                   </div>
                   <div className="mt-1.5 flex items-center gap-3">
-                    <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
+                    <div className="h-2 flex-1 overflow-hidden rounded-sm bg-white/[0.06]">
                       <div
-                        className="h-full rounded-full transition-[width] duration-700 ease-[var(--ease-out-quint)]"
+                        className="h-full rounded-sm transition-[width] duration-700 ease-[var(--ease-out-quint)]"
                         style={{
                           width: `${s.stepRate === undefined ? 100 : Math.max(1.5, s.stepRate * 100)}%`,
                           background: FUNNEL_RAMP[i],
                         }}
                       />
                     </div>
-                    <span className="w-14 text-right font-mono text-[0.7rem] text-slate-400 tabular">
+                    <span className="w-14 text-right font-mono text-[0.7rem] text-white/60 tabular">
                       {s.stepRate === undefined ? "–" : formatPercent(s.stepRate)}
                     </span>
                   </div>
                 </li>
               ))}
             </ol>
-            <p className="mt-5 border-t border-white/[0.07] pt-4 text-xs leading-relaxed text-slate-400">
+            <p className="mt-5 border-t border-white/[0.08] pt-4 text-xs leading-relaxed text-white/60">
               Cost per qualified lead:{" "}
               <span className="font-mono text-white">{formatCurrency(now.cpql)}</span>
-              <span className="text-slate-500"> vs {formatCurrency(now.cpl)} per raw lead</span>
+              <span className="text-white/50"> vs {formatCurrency(now.cpl)} per raw lead</span>
             </p>
           </section>
         </div>
 
         {/* Campaign comparison (also serves as the table view for the charts) */}
-        <section aria-label="Campaign comparison" className="mt-5 rounded-[var(--radius-md)] border border-white/[0.07]">
+        <section aria-label="Campaign comparison" className="mt-5 rounded-md border border-white/[0.08]">
           <div className="flex flex-wrap items-baseline justify-between gap-2 px-4 pt-4 sm:px-5">
             <h4 className="text-sm font-medium text-white">Campaign comparison</h4>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-white/50">
               Select a column header to sort<span className="md:hidden"> · swipe for more columns</span>
             </p>
           </div>
@@ -355,8 +375,8 @@ export function AnalyticsDemo() {
               <caption className="sr-only">
                 Sample campaign metrics for the selected period. Illustrative data only.
               </caption>
-              <thead className="text-xs text-slate-400">
-                <tr className="border-b border-white/[0.07]">
+              <thead className="text-xs text-white/60">
+                <tr className="border-b border-white/[0.08]">
                   <th scope="col" className="px-4 py-3 text-left font-medium sm:px-5">Campaign</th>
                   <SortHeader sort={sort} onSort={toggleSort} k="spend">Spend</SortHeader>
                   <SortHeader sort={sort} onSort={toggleSort} k="leads">Leads</SortHeader>
@@ -370,28 +390,28 @@ export function AnalyticsDemo() {
                   <tr key={c.id} className="border-b border-white/[0.05] last:border-0 hover:bg-white/[0.02]">
                     <th scope="row" className="px-4 py-3 text-left font-normal sm:px-5">
                       <span className="flex items-center gap-2.5">
-                        <span aria-hidden className={`size-2 shrink-0 rounded-full ${c.channel === "meta" ? "bg-meta" : "bg-google"}`} />
+                        <span aria-hidden className={`size-2 shrink-0 rounded-sm ${c.channel === "meta" ? "bg-meta" : "bg-google"}`} />
                         <span>
                           <span className="block text-white">{c.name}</span>
-                          <span className="block text-xs text-slate-500">{CHANNEL_LABEL[c.channel]}</span>
+                          <span className="block text-xs text-white/50">{CHANNEL_LABEL[c.channel]}</span>
                         </span>
                       </span>
                     </th>
-                    <td className="px-3 py-3 text-right font-mono text-slate-200 tabular">{formatCurrency(c.spend, { decimals: 0 })}</td>
-                    <td className="px-3 py-3 text-right font-mono text-slate-200 tabular">{formatNumber(c.leads)}</td>
-                    <td className="px-3 py-3 text-right font-mono text-slate-200 tabular">{formatCurrency(c.cpl)}</td>
-                    <td className="px-3 py-3 text-right font-mono text-slate-200 tabular">
+                    <td className="px-3 py-3 text-right font-mono text-white/85 tabular">{formatCurrency(c.spend, { decimals: 0 })}</td>
+                    <td className="px-3 py-3 text-right font-mono text-white/85 tabular">{formatNumber(c.leads)}</td>
+                    <td className="px-3 py-3 text-right font-mono text-white/85 tabular">{formatCurrency(c.cpl)}</td>
+                    <td className="px-3 py-3 text-right font-mono text-white/85 tabular">
                       {formatPercent(c.leads ? c.qualified / c.leads : 0, 0)}
                     </td>
                     <td className="py-3 pr-4 pl-3 sm:pr-5">
                       <span className="flex items-center justify-end gap-3">
-                        <span aria-hidden className="hidden h-1.5 w-24 overflow-hidden rounded-full bg-white/[0.06] md:block">
+                        <span aria-hidden className="hidden h-1.5 w-24 overflow-hidden rounded-sm bg-white/[0.06] md:block">
                           <span
-                            className="block h-full rounded-full bg-accent-bright/80"
+                            className="block h-full rounded-sm bg-signal-bright"
                             style={{ width: `${(c.cpql / maxCpql) * 100}%` }}
                           />
                         </span>
-                        <span className="w-16 text-right font-mono text-slate-200 tabular">{formatCurrency(c.cpql)}</span>
+                        <span className="w-16 text-right font-mono text-white/85 tabular">{formatCurrency(c.cpql)}</span>
                       </span>
                     </td>
                   </tr>
