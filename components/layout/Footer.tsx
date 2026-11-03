@@ -20,7 +20,7 @@ const linkCls = "link-underline text-white/70 transition-colors hover:text-white
 
 export function Footer() {
   return (
-    <footer className="dark-surface bg-ink-950 text-white">
+    <footer className="surface-ink bg-ink-950 text-white">
       <div className="container-site pt-20 pb-10">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="max-w-sm">

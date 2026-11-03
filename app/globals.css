@@ -2,7 +2,7 @@
 
 /* ────────────────────────────────────────────────────────────────────────────
    Design tokens
-   Brand colors come from config/site.ts (injected on <html> as --brand-*),
+   Brand colours come from config/site.ts (injected on <html> as --brand-*),
    with fallbacks here so the stylesheet works on its own.
    ──────────────────────────────────────────────────────────────────────────── */
 :root {
@@ -20,7 +20,6 @@
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-fast: 150ms;
   --dur-base: 300ms;
-  --dur-slow: 600ms;
 
   --header-h: 72px;
 }
@@ -38,9 +37,7 @@
   --color-ink-950: var(--brand-ink);
   --color-ink-900: var(--brand-ink);
   --color-ink-850: #121417;
-  --color-ink-800: #16181b;
   --color-ink-700: #202327;
-  --color-ink-600: #2a2e32;
 
   --color-mist: var(--brand-mist);
   --color-graphite: var(--brand-graphite);
@@ -51,32 +48,10 @@
   --color-meta: var(--series-meta);
   --color-google: var(--series-google);
 
-  --color-good: #2fa86b;
-  --color-warn: #e0a43a;
-
   --radius-sm: 4px;
   --radius-md: 6px;
-  --radius-lg: 8px;
 
-  --shadow-card: 0 1px 0 rgb(10 16 34 / 0.04), 0 1px 2px rgb(10 16 34 / 0.06),
-    0 8px 24px -12px rgb(10 16 34 / 0.12);
-  --shadow-lift: 0 1px 0 rgb(10 16 34 / 0.04), 0 2px 4px rgb(10 16 34 / 0.06),
-    0 24px 48px -20px rgb(10 16 34 / 0.24);
   --shadow-panel: 0 0 0 1px rgb(255 255 255 / 0.06), 0 30px 80px -30px rgb(0 0 0 / 0.7);
-
-  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-
-  --animate-pulse-dot: pulse-dot 2.4s var(--ease-out-quint) infinite;
-
-  @keyframes pulse-dot {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.35;
-    }
-  }
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
@@ -121,8 +96,12 @@
     border-radius: 6px;
   }
 
-  .dark-surface :focus-visible {
+  .surface-ink :focus-visible {
     outline-color: var(--brand-signal-bright);
+  }
+
+  input[type="checkbox"] {
+    accent-color: var(--brand-signal);
   }
 }
 
@@ -158,12 +137,6 @@
     letter-spacing: -0.035em;
     font-weight: 500;
   }
-  .display-md {
-    font-size: clamp(1.5rem, 2.4vw, 2rem);
-    line-height: 1.18;
-    letter-spacing: -0.014em;
-    font-weight: 500;
-  }
   .kicker {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -171,32 +144,6 @@
     text-transform: uppercase;
     font-weight: 500;
   }
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-
-  /* Hairline grid used as a quiet texture on dark sections */
-  .bg-grid-dark {
-    background-image: linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-  .bg-grid-light {
-    background-image: linear-gradient(rgb(10 16 34 / 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(10 16 34 / 0.05) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-  .mask-fade-b {
-    mask-image: linear-gradient(to bottom, black 40%, transparent);
-  }
-  .mask-fade-radial {
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-  }
-
   /* Chamfered label: the logo tile's corner, reused for every disclosure. */
   .stamp {
     --c: 5px;

@@ -6,7 +6,7 @@ export function ContactChannels({ tone = "light" }: { tone?: "light" | "dark" })
   const { email, whatsapp } = site.contact;
   const link = `link-underline ${dark ? "text-white" : "text-ink-900"}`;
   return (
-    <ul className={`space-y-3 text-[0.95rem] ${dark ? "text-slate-300" : "text-graphite"}`}>
+    <ul className={`space-y-3 text-[0.95rem] ${dark ? "text-white/70" : "text-graphite"}`}>
       {email && (
         <li>
           <a href={`mailto:${email}`} className={link}>

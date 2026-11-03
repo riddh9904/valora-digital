@@ -28,7 +28,7 @@ export function Measurement() {
     <section
       id="measurement"
       aria-labelledby="measurement-title"
-      className="dark-surface section-pad bg-ink-950 text-white"
+      className="surface-ink section-pad bg-ink-950 text-white"
     >
       <div className="container-site">
         <SectionHeading

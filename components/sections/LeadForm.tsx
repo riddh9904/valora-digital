@@ -411,7 +411,7 @@ export function LeadForm() {
                   setTouched((t) => ({ ...t, consent: true }));
                   setErrors((er) => ({ ...er, consent: e.target.checked ? undefined : er.consent }));
                 }}
-                className="mt-1 size-4 shrink-0 cursor-pointer rounded border-line accent-[var(--brand-signal)]"
+                className="mt-1 size-4 shrink-0 cursor-pointer rounded border-line"
               />
               <span>
                 I agree that {site.name} may use these details to respond to my enquiry, as described in the{" "}
