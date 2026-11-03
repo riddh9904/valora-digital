@@ -36,17 +36,25 @@ export function Services() {
         />
 
         <Reveal>
-          <ul className="mt-14 grid border-t border-ink-900 md:grid-cols-3">
+          {/* Rows (title | copy) from 768px, three columns from 1024px. */}
+          <ul className="mt-14 grid border-t border-ink-900 lg:grid-cols-3">
             {services.map((s) => (
               <li
                 key={s.id}
-                className="border-b border-line py-8 md:border-b-0 md:border-l md:px-8 md:first:border-l-0 md:first:pl-0"
+                className="border-b border-line py-8 md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-8 lg:block lg:border-b-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0"
               >
                 <h3 className="text-[1.6rem] font-medium tracking-[-0.03em] text-ink-900">{s.title}</h3>
-                <p className="mt-3 leading-relaxed text-graphite">{s.summary}</p>
-                <p className="mt-5 font-mono text-[0.75rem] leading-relaxed text-signal">
-                  {s.includes.join(" · ")}
-                </p>
+                <div>
+                  <p className="mt-3 leading-relaxed text-graphite md:mt-1 lg:mt-3">{s.summary}</p>
+                  <p className="mt-5 font-mono text-[0.75rem] leading-relaxed text-signal">
+                    {s.includes.map((item, i) => (
+                      <span key={item}>
+                        {i > 0 && "\u00a0· "}
+                        <span className="whitespace-nowrap">{item}</span>
+                      </span>
+                    ))}
+                  </p>
+                </div>
               </li>
             ))}
           </ul>

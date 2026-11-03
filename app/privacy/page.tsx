@@ -17,8 +17,8 @@ export default function PrivacyPage() {
   return (
     <>
       <PageHeader kicker="Legal" title="Privacy Policy" intro={<p>Last updated: {TBC}</p>} />
-      <div className="bg-white py-16 sm:py-20">
-        <div className="container-site max-w-3xl">
+      <div className="bg-white pb-24">
+        <div className="container-site max-w-4xl">
           <LegalReviewNotice />
           <Prose>
             <p>

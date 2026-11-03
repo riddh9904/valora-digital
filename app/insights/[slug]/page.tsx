@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getInsight, insights } from "@/content/insights";
@@ -30,7 +31,18 @@ export async function generateMetadata({ params }: PageProps<"/insights/[slug]">
   };
 }
 
-export default async function InsightPage({ params }: PageProps<"/insights/[slug]">) {
+// Under partial prefetching the route's App Shell is shared by every slug, so the
+// params read lives inside a Suspense boundary. Known slugs are still fully
+// prerendered through generateStaticParams; the fallback only shows mid-navigation.
+export default function InsightPage({ params }: PageProps<"/insights/[slug]">) {
+  return (
+    <Suspense fallback={<div aria-hidden className="min-h-dvh bg-white" />}>
+      <Article params={params} />
+    </Suspense>
+  );
+}
+
+async function Article({ params }: Pick<PageProps<"/insights/[slug]">, "params">) {
   const { slug } = await params;
   const article = getInsight(slug);
   if (!article) notFound();

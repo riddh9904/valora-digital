@@ -6,7 +6,7 @@ import { LeadForm } from "./LeadForm";
 const nextSteps = [
   { title: "We review your enquiry", text: "We look at your goals, market and current marketing activity." },
   { title: "A focused conversation", text: "We discuss your funnel, your data, and where the biggest opportunities may lie." },
-  { title: "A clear recommendation", text: "You get our view on what to prioritise first, and whether we're the right fit." },
+  { title: "A clear recommendation", text: "You get our view on what to prioritise first, and whether we’re the right fit." },
 ];
 
 export function Contact() {
@@ -17,8 +17,8 @@ export function Contact() {
           <SectionHeading
             id="contact-title"
             kicker="Start a conversation"
-            title="Tell us what you're trying to grow."
-            intro="We reply within one working day. Your first review of tracking and campaigns is free: you'll get our view on where to focus first, and whether we're the right fit."
+            title="Tell us what you’re trying to grow."
+            intro="We reply within one working day. Your first review of tracking and campaigns is free: you’ll get our view on where to focus first, and whether we’re the right fit."
           />
 
           <div className="mt-10">

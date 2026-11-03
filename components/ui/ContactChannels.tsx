@@ -22,7 +22,7 @@ export function ContactChannels({ tone = "light" }: { tone?: "light" | "dark" })
             rel="noopener noreferrer"
             className={link}
           >
-            WhatsApp {whatsapp.display}
+            WhatsApp <span className="whitespace-nowrap">{whatsapp.display}</span>
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </li>

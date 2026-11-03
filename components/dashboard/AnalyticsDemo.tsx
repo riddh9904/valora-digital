@@ -282,9 +282,10 @@ export function AnalyticsDemo() {
         {/* KPI tiles */}
         <dl aria-live="polite" className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-white/[0.08] bg-white/[0.08] sm:grid-cols-3 xl:grid-cols-6">
           {kpis.map((k) => (
-            <div key={k.label} className="bg-ink-850 p-4 sm:p-5">
+            <div key={k.label} className="flex flex-col bg-ink-850 p-4 sm:p-5">
               <dt className="text-xs text-white/60">{k.label}</dt>
-              <dd className="mt-2 font-mono text-2xl font-medium tracking-[-0.02em] text-white">
+              {/* mt-auto keeps figures aligned when a label wraps to two lines */}
+              <dd className="mt-auto pt-2 font-mono text-2xl font-medium tracking-[-0.02em] text-white">
                 <AnimatedNumber value={k.value} format={k.format} />
               </dd>
               <dd className="mt-1.5">
@@ -371,7 +372,7 @@ export function AnalyticsDemo() {
             </p>
           </div>
           <div className="mt-2 overflow-x-auto">
-            <table className="w-full min-w-[720px] text-sm">
+            <table className="w-full min-w-[560px] text-sm lg:min-w-[720px]">
               <caption className="sr-only">
                 Sample campaign metrics for the selected period. Illustrative data only.
               </caption>
@@ -405,7 +406,7 @@ export function AnalyticsDemo() {
                     </td>
                     <td className="py-3 pr-4 pl-3 sm:pr-5">
                       <span className="flex items-center justify-end gap-3">
-                        <span aria-hidden className="hidden h-1.5 w-24 overflow-hidden rounded-sm bg-white/[0.06] md:block">
+                        <span aria-hidden className="hidden h-1.5 w-24 overflow-hidden rounded-sm bg-white/[0.06] lg:block">
                           <span
                             className="block h-full rounded-sm bg-signal-bright"
                             style={{ width: `${(c.cpql / maxCpql) * 100}%` }}

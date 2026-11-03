@@ -95,12 +95,12 @@ export function HeroDemoCard() {
           return (
             <div
               key={k.label}
-              className={`py-4 ${i % 2 === 1 ? "border-l border-line pl-4" : "pr-4"} ${
+              className={`flex flex-col py-4 ${i % 2 === 1 ? "border-l border-line pl-4" : "pr-4"} ${
                 i >= 2 ? "border-t border-line lg:border-t-0" : ""
               } lg:border-l lg:pl-5 lg:first:border-l-0 lg:first:pl-0`}
             >
               <dt className="text-[0.8rem] text-graphite">{k.label}</dt>
-              <dd className="font-mono mt-2 text-[1.55rem] leading-none font-medium tracking-[-0.02em] sm:text-[1.9rem]">
+              <dd className="font-mono mt-auto pt-2 text-[1.55rem] leading-none font-medium tracking-[-0.02em] sm:text-[1.9rem]">
                 <AnimatedNumber value={k.value} format={k.format} />
               </dd>
               <dd
@@ -110,7 +110,7 @@ export function HeroDemoCard() {
               >
                 {formatDelta(k.delta)}{" "}
                 <span className="text-graphite">
-                  <span className="sm:hidden">vs prior {range}D</span>
+                  <span className="whitespace-nowrap sm:hidden">vs prior {range}D</span>
                   <span className="hidden sm:inline">vs previous {range} days</span>
                 </span>
               </dd>

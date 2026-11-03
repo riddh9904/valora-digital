@@ -52,7 +52,7 @@ export function CaseStudyRow({ study }: { study: CaseStudy }) {
           </ul>
         </Row>
         <Row label="Tools & methods">
-          <span className="font-mono text-xs">{study.tools.join(" · ")}</span>
+          <span className="font-mono text-xs">{study.tools.join("\u00a0· ")}</span>
         </Row>
         {showOutcomes && (
           <Row label="Verified outcomes">
@@ -86,7 +86,7 @@ export function Projects() {
           id="examples-title"
           kicker="Working examples"
           title="How we approach three common problems."
-          intro="We're a new agency, so there are no client logos here yet. These examples show how we work. Verified results will appear here once clients approve them."
+          intro="We’re a new agency, so there are no client logos here yet. These examples show how we work. Verified results will appear here once clients approve them."
           layout="split"
         />
         <div className="mt-14 border-t border-line">

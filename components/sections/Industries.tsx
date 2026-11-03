@@ -3,7 +3,6 @@
 import { industries } from "@/config/site";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Disclosure } from "@/components/ui/Disclosure";
-import { buttonClasses } from "@/components/ui/Button";
 import { prefillEnquiry } from "@/lib/prefill";
 import type { Industry } from "@/types";
 
@@ -29,14 +28,18 @@ function Journey({ ind }: { ind: Industry }) {
   );
 }
 
+// A text link rather than a filled button: four ink blocks in a row were heavy, and
+// "professional services" wrapped inside a fixed-height button at 1024–1440px.
 function Cta({ ind, className = "" }: { ind: Industry; className?: string }) {
   return (
     <button
       type="button"
       onClick={() => prefillEnquiry({ industry: ind.id })}
-      className={buttonClasses("ink", "md", className)}
+      className={`cursor-pointer text-left text-[0.92rem] font-medium text-ink-900 hover:text-signal ${className}`}
     >
-      Talk to us about {CTA_NAME[ind.id] ?? "your sector"}
+      <span className="link-underline">Talk to us about {CTA_NAME[ind.id] ?? "your sector"}</span>
+      {/* No-break space keeps the arrow with the last word when the label wraps. */}
+      <span aria-hidden>{"\u00a0→"}</span>
     </button>
   );
 }
@@ -64,7 +67,7 @@ export function Industries() {
               <p className="mt-2 text-[0.95rem] leading-relaxed text-graphite">{ind.summary}</p>
               <Journey ind={ind} />
               <div className="mt-auto pt-7">
-                <Cta ind={ind} className="max-w-full whitespace-normal! text-left" />
+                <Cta ind={ind} />
               </div>
             </li>
           ))}

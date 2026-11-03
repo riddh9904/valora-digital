@@ -11,7 +11,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
 
   return (
     <section className="flex min-h-[80vh] items-center bg-white pt-[var(--header-h)]">
-      <div className="container-site max-w-2xl">
+      <div className="container-site max-w-4xl">
         <Kicker>Something went wrong</Kicker>
         <h1 className="display-lg mt-4 text-ink-900">We couldn’t load this page.</h1>
         <p className="mt-5 text-lg text-graphite">Please try again. If the problem continues, come back a little later.</p>

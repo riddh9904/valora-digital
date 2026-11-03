@@ -47,7 +47,7 @@ export function Methodology() {
               <p className="mt-3 leading-relaxed text-graphite">{s.text}</p>
               <p className="mt-5 font-mono text-xs leading-relaxed text-ink-900">
                 <span className="sr-only">{s.title} outputs: </span>
-                {s.outputs.join(" · ")}
+                {s.outputs.join("\u00a0· ")}
               </p>
             </li>
           ))}

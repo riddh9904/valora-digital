@@ -65,7 +65,7 @@ export const CHALLENGE_OPTIONS = [
   { value: "lead-quality", label: "Lead quality is inconsistent" },
   { value: "lead-volume", label: "Not enough leads or sales" },
   { value: "rising-costs", label: "Acquisition costs are rising" },
-  { value: "conversion", label: "Leads aren't converting to customers" },
+  { value: "conversion", label: "Leads aren’t converting to customers" },
   { value: "measurement", label: "Unclear tracking or attribution" },
   { value: "launch", label: "Launching paid campaigns for the first time" },
   { value: "other", label: "Something else" },

@@ -19,7 +19,7 @@ export function Stamp({
 }) {
   return (
     <span
-      className={`stamp tabular inline-flex items-center gap-2 px-2.5 py-1.5 font-mono text-[0.68rem] leading-none tracking-[0.08em] uppercase ${tones[tone]}`}
+      className={`stamp tabular inline-flex items-center gap-2 px-2.5 py-1 font-mono text-[0.68rem] leading-[1.35] tracking-[0.08em] uppercase ${tones[tone]}`}
     >
       {live && <span aria-hidden className="live-dot size-1.5 rounded-full bg-signal-bright" />}
       {children}

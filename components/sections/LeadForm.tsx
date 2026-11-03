@@ -278,7 +278,7 @@ export function LeadForm() {
       setStatus({
         kind: "error",
         code: "network",
-        message: "We couldn't reach the server. Please check your connection and try again.",
+        message: "We couldn’t reach the server. Please check your connection and try again.",
       });
     }
     requestAnimationFrame(() => statusRef.current?.focus());
@@ -395,7 +395,7 @@ export function LeadForm() {
                 {CHALLENGE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
             </Field>
-            <Field id={fid("message")} label="Anything else we should know?" optional error={errors.message} className="sm:col-span-2" hint={`${values.message.length}/${LIMITS.message}. Please don't include passwords or sensitive personal data.`}>
+            <Field id={fid("message")} label="Anything else we should know?" optional error={errors.message} className="sm:col-span-2" hint={`${values.message.length}/${LIMITS.message}. Please don’t include passwords or sensitive personal data.`}>
               <textarea {...a11y("message", true)} rows={4} maxLength={LIMITS.message} className="field-input resize-y" value={values.message} onChange={(e) => update("message", e.target.value)} />
             </Field>
           </div>

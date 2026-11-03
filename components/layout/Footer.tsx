@@ -22,8 +22,8 @@ export function Footer() {
   return (
     <footer className="surface-ink bg-ink-950 text-white">
       <div className="container-site pt-20 pb-10">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-          <div className="max-w-sm">
+        <div className="grid gap-12 sm:grid-cols-3 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="max-w-sm sm:col-span-3 lg:col-span-1">
             <Wordmark tone="dark" />
             <p className="mt-6 text-sm leading-relaxed text-white/70">{site.description}</p>
           </div>
