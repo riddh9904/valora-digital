@@ -83,25 +83,23 @@ export function Navbar() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  const solid = scrolled || open;
-
   return (
     <header
-      className={`dark-surface fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-300 ${
         // No backdrop-filter while the menu is open: it would become the containing
         // block for the fixed-position menu panel and collapse it.
         open
-          ? "border-b border-white/[0.07] bg-ink-950"
-          : solid
-            ? "border-b border-white/[0.07] bg-ink-950/95 backdrop-blur-xl"
-            : "border-b border-transparent bg-transparent"
+          ? "border-line bg-white"
+          : scrolled
+            ? "border-line bg-white/90 backdrop-blur"
+            : "border-transparent bg-white"
       }`}
     >
       <nav
         aria-label="Primary"
         className="container-site flex h-[var(--header-h)] items-center justify-between gap-6"
       >
-        <Wordmark tone="dark" />
+        <Wordmark />
 
         <ul className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => {
@@ -112,14 +110,14 @@ export function Navbar() {
                 <Link
                   href={item.href}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative rounded-full px-3.5 py-2 text-sm transition-colors ${
-                    isActive ? "text-white" : "text-slate-300 hover:text-white"
+                  className={`relative rounded-md px-3.5 py-2 text-sm transition-colors ${
+                    isActive ? "text-ink-950" : "text-graphite hover:text-ink-950"
                   }`}
                 >
                   {item.label}
                   <span
                     aria-hidden
-                    className={`absolute inset-x-3.5 -bottom-0.5 h-px origin-left bg-accent-bright transition-transform duration-300 ${
+                    className={`absolute inset-x-3.5 -bottom-0.5 h-px origin-left bg-signal transition-transform duration-300 ${
                       isActive ? "scale-x-100" : "scale-x-0"
                     }`}
                   />
@@ -134,7 +132,7 @@ export function Navbar() {
             <a
               href={bookHref}
               {...(bookExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className={buttonClasses("primary", "md", "!h-10 !px-4")}
+              className={buttonClasses("ink", "md", "!h-10 !px-4")}
             >
               {site.cta.primary}
             </a>
@@ -142,7 +140,7 @@ export function Navbar() {
           <button
             ref={toggleRef}
             type="button"
-            className="inline-flex size-10 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:bg-white/10 lg:hidden"
+            className="inline-flex size-10 items-center justify-center rounded-md border border-line text-ink-950 transition-colors hover:bg-mist lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -165,19 +163,19 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-0 top-[var(--header-h)] bottom-0 overflow-y-auto border-t border-white/[0.07] bg-ink-950 lg:hidden"
+            className="fixed inset-x-0 top-[var(--header-h)] bottom-0 overflow-y-auto border-t border-line bg-white lg:hidden"
           >
             <div className="container-site flex min-h-full flex-col py-8">
               <ul className="flex flex-col">
                 {navItems.map((item) => (
-                  <li key={item.href} className="border-b border-white/[0.07]">
+                  <li key={item.href} className="border-b border-line">
                     <Link
                       href={item.href}
                       onClick={() => close(false)}
-                      className="flex items-center justify-between py-5 font-display text-2xl font-medium tracking-tight text-white"
+                      className="flex items-center justify-between py-5 text-2xl font-medium tracking-tight text-ink-950"
                     >
                       {item.label}
-                      <span aria-hidden className="text-slate-500">→</span>
+                      <span aria-hidden className="text-graphite">→</span>
                     </Link>
                   </li>
                 ))}
@@ -186,7 +184,7 @@ export function Navbar() {
                 href={bookHref}
                 onClick={() => close(false)}
                 {...(bookExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className={buttonClasses("primary", "lg", "mt-10 w-full")}
+                className={buttonClasses("ink", "lg", "mt-10 w-full")}
               >
                 {site.cta.primary}
               </a>

@@ -92,7 +92,7 @@ export const locations: Location[] = [
 export const navItems: NavItem[] = [
   { label: "Services", href: "/#services" },
   { label: "Industries", href: "/#industries" },
-  { label: "Our approach", href: "/#approach" },
+  { label: "How we work", href: "/#approach" },
   { label: "Insights", href: "/#insights" },
   { label: "About", href: "/#about" },
 ];
