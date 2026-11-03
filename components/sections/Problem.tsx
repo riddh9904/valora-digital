@@ -31,7 +31,7 @@ export function Problem() {
         <div className="lg:sticky lg:top-[calc(var(--header-h)+48px)] lg:self-start">
           <SectionHeading
             id="problem-title"
-            eyebrow="The problem we solve"
+            kicker="The problem we solve"
             title="Getting clicks is easy. Turning them into customers is hard"
             intro="Many businesses meet some version of these challenges as their advertising grows. None of them is solved by spending more. Each is solved by measuring and managing the full journey."
           />

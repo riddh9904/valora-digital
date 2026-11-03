@@ -83,7 +83,7 @@ export function Industries() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
             id="industries-title"
-            eyebrow="Industries"
+            kicker="Industries"
             title="Growth strategies built around your business"
             intro="Every market has its own buying journey. These are the sectors we are building our practice around, and how we would approach each."
           />

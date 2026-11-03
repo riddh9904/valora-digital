@@ -11,7 +11,7 @@ export function BookCallButton({
   className,
   label = site.cta.primary,
 }: {
-  variant?: "primary" | "secondary" | "ghost" | "light";
+  variant?: "primary" | "ink" | "ghost" | "light" | "text";
   size?: "md" | "lg";
   className?: string;
   label?: string;

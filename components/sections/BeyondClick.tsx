@@ -28,7 +28,7 @@ export function BeyondClick() {
       <div className="container-site">
         <SectionHeading
           id="beyond-title"
-          eyebrow="Beyond the click"
+          kicker="Beyond the click"
           title="We look beyond the click"
           intro="Platform dashboards are good at describing activity. Businesses grow on outcomes. We focus reporting and optimization on the measures that connect to revenue."
         />

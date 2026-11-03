@@ -11,7 +11,7 @@ export function Services() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
             id="services-title"
-            eyebrow="Services"
+            kicker="Services"
             title="Growth is more than getting clicks"
             intro="We connect acquisition, conversion, and measurement to help businesses make more of their marketing investment."
           />

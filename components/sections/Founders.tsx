@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowUpRight, CodeXml, ChartLine, Megaphone } from "lucide-react";
 import { founders } from "@/config/site";
-import { Eyebrow } from "@/components/ui/SectionHeading";
+import { Kicker } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 
 const strengths = [
@@ -16,7 +16,7 @@ export function Founders() {
       <div className="container-site">
         <div className="grid gap-14 lg:grid-cols-[1.25fr_1fr] lg:gap-20">
           <div>
-            <Eyebrow>About us</Eyebrow>
+            <Kicker>About us</Kicker>
             <h2 id="about-title" className="display-lg mt-5 text-ink-900">
               Built at the intersection of marketing and data
             </h2>

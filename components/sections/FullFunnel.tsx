@@ -42,7 +42,7 @@ export function FullFunnel() {
         <SectionHeading
           id="approach-title"
           tone="dark"
-          eyebrow="Our approach · Full-funnel growth"
+          kicker="Our approach · Full-funnel growth"
           title="From first click to real customer"
           intro="Advertising performance is only one part of customer acquisition. We look at the whole path, from the first impression to the customer who pays, and improve the stage that is holding growth back."
         />

@@ -26,7 +26,7 @@ export function Footer() {
       <div className="container-site relative pt-20 pb-10">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="max-w-sm">
-            <Wordmark />
+            <Wordmark tone="dark" />
             <p className="mt-6 text-sm leading-relaxed text-slate-400">
               Performance marketing for businesses that want to connect advertising spend with
               qualified leads, customers and revenue. Paid acquisition, conversion optimization

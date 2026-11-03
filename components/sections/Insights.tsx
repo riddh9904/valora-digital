@@ -12,7 +12,7 @@ export function Insights() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
             id="insights-title"
-            eyebrow="Insights"
+            kicker="Insights"
             title="Perspectives on performance and growth"
           />
           <Link href="/insights" className="group inline-flex items-center gap-1.5 text-sm font-medium text-ink-900 hover:text-accent">

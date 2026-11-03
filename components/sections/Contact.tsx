@@ -35,7 +35,7 @@ export function Contact() {
             <ButtonLink href={site.bookingUrl ?? "#enquiry"} size="lg">
               {site.cta.primary}
             </ButtonLink>
-            <ButtonLink href="#enquiry" variant="secondary" size="lg" icon="none">
+            <ButtonLink href="#enquiry" variant="light" size="lg" icon="none">
               {site.cta.form}
             </ButtonLink>
           </div>

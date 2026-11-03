@@ -102,7 +102,7 @@ export function Projects() {
         <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-end">
           <SectionHeading
             id="projects-title"
-            eyebrow="Work"
+            kicker="Work"
             title="Selected projects and demonstrations"
             intro="How we approach common growth problems: the context, the work and the methods. Verified project results will be added here, with their data sources and limitations, as engagements are completed and approved for publication."
           />

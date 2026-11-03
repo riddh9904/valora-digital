@@ -43,7 +43,7 @@ export function Methodology() {
           <SectionHeading
             id="process-title"
             tone="dark"
-            eyebrow="Methodology"
+            kicker="Methodology"
             title="A clear process, continuously improved"
             intro="Four stages, repeated. Each cycle ends with documented results and a clear decision about what to do next."
           />

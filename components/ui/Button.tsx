@@ -2,19 +2,18 @@ import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-type Variant = "primary" | "secondary" | "ghost" | "light";
+type Variant = "primary" | "ink" | "ghost" | "light" | "text";
 type Size = "md" | "lg";
 
 const base =
-  "group inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition-[background-color,border-color,color,box-shadow,transform] duration-200 ease-[var(--ease-out-quint)] active:translate-y-px disabled:pointer-events-none disabled:opacity-60";
+  "group inline-flex items-center justify-center gap-2 rounded-md font-medium whitespace-nowrap transition-[background-color,border-color,color,transform] duration-200 ease-[var(--ease-out-quint)] active:translate-y-px disabled:pointer-events-none disabled:opacity-60";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-accent text-white shadow-[0_1px_0_rgb(255_255_255/0.2)_inset,0_8px_24px_-10px_rgb(52_97_240/0.7)] hover:bg-[#2a55e0]",
-  secondary:
-    "border border-white/18 bg-white/[0.04] text-white hover:border-white/35 hover:bg-white/[0.08]",
-  ghost: "border border-ink-900/15 text-ink-900 hover:border-ink-900/35 hover:bg-ink-900/[0.03]",
-  light: "bg-white text-ink-900 hover:bg-paper",
+  primary: "bg-signal text-white hover:bg-[#096a4d]",
+  ink: "bg-ink-900 text-white hover:bg-ink-700",
+  ghost: "border border-line text-ink-900 hover:border-ink-900/40 hover:bg-mist",
+  light: "bg-white text-ink-900 hover:bg-mist",
+  text: "text-ink-900 underline underline-offset-4 decoration-1 hover:decoration-2",
 };
 
 const sizes: Record<Size, string> = {

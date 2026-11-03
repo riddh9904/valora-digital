@@ -101,7 +101,7 @@ export function Navbar() {
         aria-label="Primary"
         className="container-site flex h-[var(--header-h)] items-center justify-between gap-6"
       >
-        <Wordmark />
+        <Wordmark tone="dark" />
 
         <ul className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => {

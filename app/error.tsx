@@ -19,7 +19,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           <button type="button" onClick={reset} className={buttonClasses("primary")}>
             Try again
           </button>
-          <Link href="/" className={buttonClasses("secondary")}>
+          <Link href="/" className={buttonClasses("light")}>
             Go to home
           </Link>
         </div>

@@ -42,7 +42,7 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
             <BookCallButton size="lg" />
-            <ButtonLink href="/#approach" variant="secondary" size="lg" icon="none">
+            <ButtonLink href="/#approach" variant="light" size="lg" icon="none">
               {site.cta.secondary}
             </ButtonLink>
           </div>

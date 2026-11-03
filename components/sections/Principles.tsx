@@ -26,7 +26,7 @@ export function Principles() {
       <div className="container-site">
         <SectionHeading
           id="principles-title"
-          eyebrow="Working principles"
+          kicker="Working principles"
           title="Better decisions, better marketing"
         />
         <ol className="mt-14 border-t border-ink-900/10">

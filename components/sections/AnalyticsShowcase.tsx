@@ -21,7 +21,7 @@ export function AnalyticsShowcase() {
           <SectionHeading
             id="analytics-title"
             tone="dark"
-            eyebrow="Measurement in practice"
+            kicker="Measurement in practice"
             title="Clarity behind every campaign"
             intro="Understand what your campaigns are generating, where conversion opportunities exist, and what to investigate next."
           />
