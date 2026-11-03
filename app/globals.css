@@ -6,14 +6,14 @@
    with fallbacks here so the stylesheet works on its own.
    ──────────────────────────────────────────────────────────────────────────── */
 :root {
-  --brand-ink: #0a1022;
-  --brand-ink-deep: #070b18;
-  --brand-paper: #f7f6f2;
-  --brand-accent: #3461f0;
-  --brand-accent-bright: #5b84ff;
-  --brand-violet: #7c5cff;
+  --brand-ink: #0b0c0e;
+  --brand-mist: #f4f5f4;
+  --brand-graphite: #5e6368;
+  --brand-line: #e1e3e1;
+  --brand-signal: #0b7a5a;
+  --brand-signal-bright: #12b886;
 
-  /* Chart roles (validated for the dark analytics surface #0E1530) */
+  /* Chart roles (validated for the dark analytics surface) */
   --series-meta: #4c7dff;
   --series-google: #d96a2e;
 
@@ -25,32 +25,28 @@
   --header-h: 72px;
 }
 
-/* Inter Tight is already narrow; Tailwind's default -0.025em makes it cramped. */
+/* Instrument Sans is narrow; Tailwind's default -0.025em makes it cramped. */
 @theme {
   --tracking-tight: -0.012em;
 }
 
 @theme inline {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-inter-tight), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
-  --color-ink-950: var(--brand-ink-deep);
+  --color-ink-950: var(--brand-ink);
   --color-ink-900: var(--brand-ink);
-  --color-ink-850: #0e1530;
-  --color-ink-800: #131c3b;
-  --color-ink-700: #1d2850;
-  --color-ink-600: #2a375f;
+  --color-ink-850: #121417;
+  --color-ink-800: #16181b;
+  --color-ink-700: #202327;
+  --color-ink-600: #2a2e32;
 
-  --color-paper: var(--brand-paper);
-  --color-paper-2: #efede6;
-  --color-paper-3: #e4e1d8;
-
-  --color-accent: var(--brand-accent);
-  --color-accent-bright: var(--brand-accent-bright);
-  --color-accent-soft: #a9bdff;
-  --color-violet: var(--brand-violet);
-  --color-violet-soft: #c4b5ff;
+  --color-mist: var(--brand-mist);
+  --color-graphite: var(--brand-graphite);
+  --color-line: var(--brand-line);
+  --color-signal: var(--brand-signal);
+  --color-signal-bright: var(--brand-signal-bright);
 
   --color-meta: var(--series-meta);
   --color-google: var(--series-google);
@@ -58,11 +54,9 @@
   --color-good: #2fa86b;
   --color-warn: #e0a43a;
 
-  --radius-xs: 6px;
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
 
   --shadow-card: 0 1px 0 rgb(10 16 34 / 0.04), 0 1px 2px rgb(10 16 34 / 0.06),
     0 8px 24px -12px rgb(10 16 34 / 0.12);
@@ -93,14 +87,13 @@
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--header-h) + 16px);
     -webkit-text-size-adjust: 100%;
-    background: var(--brand-ink);
+    background: #ffffff;
   }
 
   body {
-    background: var(--brand-paper);
+    background: #ffffff;
     color: var(--brand-ink);
     font-family: var(--font-sans);
-    font-feature-settings: "cv11", "ss01";
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -119,17 +112,17 @@
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--brand-accent) 28%, transparent);
+    background: color-mix(in oklab, var(--brand-signal) 25%, transparent);
   }
 
   :focus-visible {
-    outline: 2px solid var(--brand-accent-bright);
+    outline: 2px solid var(--brand-signal);
     outline-offset: 3px;
     border-radius: 6px;
   }
 
   .dark-surface :focus-visible {
-    outline-color: #a9bdff;
+    outline-color: var(--brand-signal-bright);
   }
 }
 
@@ -154,22 +147,29 @@
   }
 
   .display-xl {
-    font-size: clamp(2.6rem, 5.6vw, 4.75rem);
+    font-size: clamp(2.6rem, 6.4vw, 4.6rem);
     line-height: 1.02;
-    letter-spacing: -0.022em;
-    font-weight: 600;
+    letter-spacing: -0.042em;
+    font-weight: 500;
   }
   .display-lg {
-    font-size: clamp(2.1rem, 4.4vw, 3.75rem);
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    font-weight: 600;
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    font-weight: 500;
   }
   .display-md {
     font-size: clamp(1.5rem, 2.4vw, 2rem);
     line-height: 1.18;
     letter-spacing: -0.014em;
-    font-weight: 600;
+    font-weight: 500;
+  }
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
   }
   .eyebrow {
     font-family: var(--font-mono);
@@ -197,6 +197,39 @@
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
   }
 
+  /* Chamfered label: the logo tile's corner, reused for every disclosure. */
+  .stamp {
+    --c: 5px;
+    clip-path: polygon(
+      var(--c) 0,
+      calc(100% - var(--c)) 0,
+      100% var(--c),
+      100% calc(100% - var(--c)),
+      calc(100% - var(--c)) 100%,
+      var(--c) 100%,
+      0 calc(100% - var(--c)),
+      0 var(--c)
+    );
+  }
+
+  .live-dot {
+    box-shadow: 0 0 0 3px rgb(18 184 134 / 0.2);
+    animation: live-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes live-pulse {
+    50% {
+      box-shadow: 0 0 0 6px rgb(18 184 134 / 0);
+    }
+  }
+
+  .link-underline {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size var(--dur-base) var(--ease-out-quint);
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
   .tabular {
     font-variant-numeric: tabular-nums;
   }
@@ -204,41 +237,39 @@
   /* Form controls */
   .field-input {
     width: 100%;
-    border-radius: var(--radius-sm);
-    border: 1px solid rgb(255 255 255 / 0.14);
-    background: rgb(255 255 255 / 0.04);
-    color: #fff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--brand-line);
+    background: #fff;
+    color: var(--brand-ink);
     padding: 0.75rem 0.9rem;
     font-size: 0.95rem;
     line-height: 1.4;
-    transition: border-color var(--dur-fast), background-color var(--dur-fast),
-      box-shadow var(--dur-fast);
+    transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
   }
   .field-input::placeholder {
-    color: rgb(255 255 255 / 0.38);
+    color: var(--brand-graphite);
   }
   .field-input:hover {
-    border-color: rgb(255 255 255 / 0.24);
+    border-color: var(--brand-graphite);
   }
   .field-input:focus {
     outline: none;
-    border-color: var(--brand-accent-bright);
-    background: rgb(255 255 255 / 0.06);
-    box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-accent-bright) 30%, transparent);
+    border-color: var(--brand-signal);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-signal) 25%, transparent);
   }
   .field-input[aria-invalid="true"] {
-    border-color: #f08a8a;
+    border-color: #c0392b;
   }
   select.field-input {
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23ffffff99' stroke-width='1.6' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%230b0c0e' stroke-width='1.6' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.9rem center;
     padding-right: 2.25rem;
   }
   select.field-input option {
-    background: #0e1530;
-    color: #fff;
+    background: #fff;
+    color: var(--brand-ink);
   }
 }
 

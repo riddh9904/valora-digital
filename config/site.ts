@@ -24,6 +24,7 @@ import type {
   CaseStudy,
   Founder,
   Industry,
+  Location,
   NavItem,
   ProofPoint,
   Service,
@@ -35,9 +36,9 @@ const env = (value: string | undefined) =>
 export const site = {
   name: "Valora Digital",
   shortName: "Valora",
-  tagline: "Performance marketing with conversion intelligence.",
+  tagline: "AI-driven performance marketing, measured to the sale.",
   description:
-    "Valora Digital is a performance marketing partner for ambitious businesses: Meta and Google Ads, lead generation, conversion rate optimization and marketing analytics that connect spend to real business outcomes.",
+    "Valora Digital runs AI-driven Meta and Google Ads for businesses in India, the UAE and beyond, trains the platforms on qualified leads and sales, and reports what every customer cost.",
   /** Canonical origin. Override with NEXT_PUBLIC_SITE_URL in each environment. */
   url: env(process.env.NEXT_PUBLIC_SITE_URL) ?? "http://localhost:3000",
   locale: "en_IN",
@@ -47,18 +48,22 @@ export const site = {
    * and consumed by the Tailwind theme in app/globals.css.
    */
   colors: {
-    ink: "#0A1022",
-    inkDeep: "#070B18",
-    paper: "#F7F6F2",
-    accent: "#3461F0",
-    accentBright: "#5B84FF",
-    violet: "#7C5CFF",
+    ink: "#0B0C0E",
+    mist: "#F4F5F4",
+    graphite: "#5E6368",
+    line: "#E1E3E1",
+    signal: "#0B7A5A",
+    signalBright: "#12B886",
   },
 
   /** Contact details. `null` = not shown anywhere on the site. */
   contact: {
-    email: null as string | null,
+    email: "inquiry@valoradigital.co" as string | null,
     phone: null as string | null,
+    whatsapp: { e164: "+918368526041", display: "+91 83685 26041" } as {
+      e164: string;
+      display: string;
+    } | null,
     address: null as string | null,
   },
 
@@ -73,11 +78,16 @@ export const site = {
   bookingUrl: env(process.env.NEXT_PUBLIC_BOOKING_URL),
 
   cta: {
-    primary: "Book a strategy call",
+    primary: env(process.env.NEXT_PUBLIC_BOOKING_URL) ? "Book a call" : "Start a conversation",
     secondary: "Explore our approach",
     form: "Tell us about your business",
   },
 } as const;
+
+export const locations: Location[] = [
+  { city: "Dubai", role: "Headquarters" },
+  { city: "Gurugram", role: "Office" },
+];
 
 export const navItems: NavItem[] = [
   { label: "Services", href: "/#services" },

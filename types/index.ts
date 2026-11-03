@@ -68,6 +68,11 @@ export interface CaseStudy {
   publicationApproved?: boolean;
 }
 
+export interface Location {
+  city: string;
+  role: "Headquarters" | "Office";
+}
+
 export interface Founder {
   name: string;
   role: string;

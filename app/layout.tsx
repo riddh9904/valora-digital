@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Geist_Mono, Instrument_Sans } from "next/font/google";
 import type { CSSProperties } from "react";
 import { site } from "@/config/site";
 import { Navbar } from "@/components/layout/Navbar";
@@ -7,19 +7,18 @@ import { Footer } from "@/components/layout/Footer";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const interTight = Inter_Tight({
+const instrument = Instrument_Sans({
   subsets: ["latin"],
-  variable: "--font-inter-tight",
+  variable: "--font-instrument",
   display: "swap",
 });
-const jetbrains = JetBrains_Mono({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains",
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
-const title = `${site.name}: Performance Marketing & Conversion Intelligence`;
+const title = `${site.name} · AI-driven Meta and Google Ads, measured to the sale`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -40,17 +39,17 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: site.colors.ink,
+  themeColor: "#FFFFFF",
   colorScheme: "light",
 };
 
 const brandVars = {
   "--brand-ink": site.colors.ink,
-  "--brand-ink-deep": site.colors.inkDeep,
-  "--brand-paper": site.colors.paper,
-  "--brand-accent": site.colors.accent,
-  "--brand-accent-bright": site.colors.accentBright,
-  "--brand-violet": site.colors.violet,
+  "--brand-mist": site.colors.mist,
+  "--brand-graphite": site.colors.graphite,
+  "--brand-line": site.colors.line,
+  "--brand-signal": site.colors.signal,
+  "--brand-signal-bright": site.colors.signalBright,
 } as CSSProperties;
 
 // Organization schema limited to facts that are true today (name + URL).
@@ -68,7 +67,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       style={brandVars}
-      className={`${inter.variable} ${interTight.variable} ${jetbrains.variable}`}
+      className={`${instrument.variable} ${geistMono.variable}`}
     >
       <body className="min-h-dvh">
         <script
@@ -77,7 +76,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
         <a
           href="#main"
-          className="sr-only z-[100] rounded-full bg-white px-4 py-2 text-sm font-medium text-ink-900 focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-[100] rounded-md bg-ink-950 px-4 py-2 text-sm font-medium text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to content
         </a>

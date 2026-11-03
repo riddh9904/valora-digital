@@ -23,7 +23,7 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div style={{ width: 48, height: 48, borderRadius: 12, background: site.colors.accent, display: "flex" }} />
+          <div style={{ width: 48, height: 48, borderRadius: 12, background: site.colors.signal, display: "flex" }} />
           <div style={{ fontSize: 34, fontWeight: 600, letterSpacing: -1 }}>{site.name}</div>
         </div>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
@@ -43,7 +43,7 @@ export default function OpengraphImage() {
                   width: 22,
                   height: 220 * h,
                   borderRadius: 5,
-                  background: i === bars.length - 1 ? site.colors.accentBright : "rgba(169,189,255,0.28)",
+                  background: i === bars.length - 1 ? site.colors.signalBright : "rgba(169,189,255,0.28)",
                 }}
               />
             ))}
