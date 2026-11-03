@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getInsight, insights } from "@/content/insights";
@@ -31,18 +30,18 @@ export async function generateMetadata({ params }: PageProps<"/insights/[slug]">
   };
 }
 
-// Under partial prefetching the route's App Shell is shared by every slug, so the
-// params read lives inside a Suspense boundary. Known slugs are still fully
-// prerendered through generateStaticParams; the fallback only shows mid-navigation.
-export default function InsightPage({ params }: PageProps<"/insights/[slug]">) {
-  return (
-    <Suspense fallback={<div aria-hidden className="min-h-dvh bg-white" />}>
-      <Article params={params} />
-    </Suspense>
-  );
-}
+// Unknown slugs must get a real 404 status, so notFound() has to run before any response
+// is sent:
+// - `params` is read at the top, outside any Suspense boundary.
+// - `ensureStatic = "navigation"` makes a request for a slug missing from generateStaticParams
+//   wait for the complete render instead of streaming the route's fallback App Shell (which
+//   partial prefetching would otherwise send with a 200 before notFound() runs).
+// - `instant = false` allows that blocking read and silences the dev-only
+//   instant-shell-url-data insight.
+export const ensureStatic = "navigation";
+export const instant = false;
 
-async function Article({ params }: Pick<PageProps<"/insights/[slug]">, "params">) {
+export default async function InsightPage({ params }: PageProps<"/insights/[slug]">) {
   const { slug } = await params;
   const article = getInsight(slug);
   if (!article) notFound();
