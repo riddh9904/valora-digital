@@ -30,7 +30,7 @@ export const site = {
   shortName: "Valora",
   tagline: "AI-driven performance marketing, measured to the sale.",
   description:
-    "Valora Digital runs AI-driven Meta and Google Ads for businesses in India, the UAE and beyond, trains the platforms on qualified leads and sales, and reports what every customer cost.",
+    "Valora Digital runs AI-driven Meta and Google Ads, plus LinkedIn, TikTok, Snapchat and more, for businesses in India, the UAE and beyond. We train the platforms on qualified leads and sales, and report what every customer cost.",
   /** Canonical origin. Override with NEXT_PUBLIC_SITE_URL in each environment. */
   url: env(process.env.NEXT_PUBLIC_SITE_URL) ?? "http://localhost:3000",
   locale: "en_IN",
@@ -94,8 +94,8 @@ export const services: Service[] = [
     id: "acquire",
     title: "Acquire",
     summary:
-      "Meta and Google Ads with Advantage+, Performance Max and Smart Bidding, steered by qualified-lead and sales signals. AI-generated copy, image and video variations, tested against each other.",
-    includes: ["Meta Ads", "Google Ads", "Creative testing", "Catalogue campaigns"],
+      "Meta and Google Ads with Advantage+, Performance Max and Smart Bidding, plus LinkedIn, TikTok, Snapchat and other platforms where your customers are. Every channel is steered by qualified-lead and sales signals, with AI-generated copy, image and video variations tested against each other.",
+    includes: ["Meta Ads", "Google Ads", "LinkedIn, TikTok & Snapchat", "Creative testing", "Catalogue campaigns"],
   },
   {
     id: "convert",

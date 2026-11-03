@@ -122,7 +122,7 @@ All copy follows the review artifact's Phase 4 rewrites, updated with the decisi
 - **Hero.**
   - Kicker: "AI-driven performance marketing · Dubai and Gurugram", with a live dot.
   - H1: "Ad platforms run on AI. We teach it what a customer is."
-  - Subhead: "Valora runs Meta and Google Ads for businesses in India, the UAE and beyond. We train the platforms' AI on qualified leads and sales instead of form fills, test AI-generated creative at speed, and report what every customer cost."
+  - Subhead: "Valora runs Meta and Google Ads, plus LinkedIn, TikTok, Snapchat and more, for businesses in India, the UAE and beyond. We train the platforms' AI on qualified leads and sales instead of form fills, test AI-generated creative at speed, and report what every customer cost."
   - CTAs: the primary CTA, plus "See the live report →", which goes to the measurement section.
   - Below the CTAs: a compact, light, interactive demo card (KPIs: spend, qualified leads, cost per qualified lead, opportunities; a 30D/90D toggle; trend lines), stamped "Live demo · Sample data". It reuses `lib/sample-data.ts` and `lib/metrics.ts`.
   - Under the card: three commitments, Cost per qualified lead · Reconciled with your CRM · Caveats in writing.
@@ -205,7 +205,7 @@ Removed: pill chips, icon tiles and Lucide icons used as decoration. Icons remai
 ## 9. SEO, accessibility and performance
 
 - **Metadata:**
-  - Default title: "Valora Digital · AI-driven Meta and Google Ads, measured to the sale".
+  - Default title: "Valora Digital · AI-driven performance marketing, measured to the sale".
   - The description is rewritten.
   - Canonicals, sitemap and robots are unchanged.
   - The Open Graph image is redesigned in the new identity.

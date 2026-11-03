@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const title = `${site.name} · AI-driven Meta and Google Ads, measured to the sale`;
+const title = `${site.name} · AI-driven performance marketing, measured to the sale`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
