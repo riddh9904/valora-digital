@@ -1,7 +1,7 @@
 import { caseStudies } from "@/config/site";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stamp } from "@/components/ui/Stamp";
-import type { CaseStudy } from "@/types";
+import type { CaseStudy, CaseStudyOutcome } from "@/types";
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -13,12 +13,15 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 }
 
 /** Only client work with written approval and a source on every outcome is publishable. */
-const isPublishable = (c: CaseStudy) =>
-  c.publicationApproved === true &&
-  (c.outcomes?.length ?? 0) > 0 &&
-  c.outcomes!.every((o) => o.source.trim().length > 0);
+type PublishableCaseStudy = CaseStudy & { outcomes: CaseStudyOutcome[] };
 
-export function CaseStudyRow({ study }: { study: CaseStudy }) {
+const isPublishable = (c: CaseStudy): c is PublishableCaseStudy =>
+  c.publicationApproved === true &&
+  c.outcomes !== undefined &&
+  c.outcomes.length > 0 &&
+  c.outcomes.every((o) => o.source.trim().length > 0);
+
+function CaseStudyRow({ study }: { study: PublishableCaseStudy }) {
   return (
     <article
       aria-labelledby={`work-${study.id}-title`}
@@ -50,11 +53,11 @@ export function CaseStudyRow({ study }: { study: CaseStudy }) {
           </ol>
         </Row>
         <Row label="Tools">
-          <span className="font-mono text-xs text-graphite">{study.tools.join(" · ")}</span>
+          <span className="font-mono text-xs text-graphite">{study.tools.join("\u00a0· ")}</span>
         </Row>
         <Row label="Verified outcomes">
           <ul className="space-y-2">
-            {study.outcomes!.map((o) => (
+            {study.outcomes.map((o) => (
               <li key={o.metric}>
                 <span className="font-medium text-ink-900">
                   {o.metric}: {o.value}

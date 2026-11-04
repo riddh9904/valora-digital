@@ -32,6 +32,7 @@ export const site = {
   name: "Valora Digital",
   shortName: "Valora",
   tagline: "AI-driven performance marketing, measured to the sale.",
+  // Must stay ≤165 characters, so it says "other ad platforms" rather than "other paid ad platforms".
   description:
     "Valora Digital manages Meta, Google and other ad platforms for businesses in India, the UAE and beyond, with AI optimisation steered by qualified leads and sales.",
   /** Positioning line, shown in the What we do intro and the footer. */
@@ -100,14 +101,14 @@ export const services: Service[] = [
     label: "Lead generation",
     headline: "More qualified leads. Less wasted ad spend.",
     summary:
-      "We agree what a qualified lead is with your sales team, send that signal to Meta’s and Google’s AI bidding, and move budget to the campaigns that produce it.",
+      "We agree with your sales team what counts as a qualified lead, send that signal to Meta’s and Google’s AI bidding, and move budget to the campaigns that produce it.",
     includes: ["Meta Ads", "Google Ads", "LinkedIn, TikTok & Snapchat", "AI creative testing", "Catalogue campaigns"],
     problem:
       "Cost per lead looks healthy in the ad platform, but the sales team says many enquiries are unreachable, out of area or not ready to buy.",
     scenario:
-      "A residential developer runs lead-form campaigns. The two with the cheapest leads produce almost no site visits. Their budget moves to the campaign whose leads the sales team rates highest, and the platform is sent site-visit bookings, not form fills, as the result to optimise for.",
+      "A residential developer runs lead-form campaigns. The campaigns with the cheapest leads produce almost no site visits. Their budget moves to the campaign whose leads the sales team rates highest, and the platform is sent site-visit bookings, not form fills, as the result to optimise for.",
     approach: [
-      "Agree what a qualified lead is with your sales team",
+      "Write down the qualified-lead definition and the CRM status that marks it",
       "Pass campaign and ad IDs into the CRM with every lead",
       "Report cost per qualified lead next to platform cost per lead",
       "Send qualified-lead events back through Meta’s Conversions API and Google’s offline conversion import, so bidding optimises for them",
@@ -158,7 +159,7 @@ export const services: Service[] = [
     problem:
       "Campaigns are optimised on platform-reported ROAS, while finance judges the business on margin or booked sales from a separate system.",
     scenario:
-      "A skincare brand’s best-ROAS campaign turns out to sell mostly discounted bundles to people who have bought before. Scaling decisions move to first-order margin and new-customer share, and that campaign’s budget is capped until it brings in new customers.",
+      "A skincare brand’s best-ROAS campaign sells mostly discounted bundles to people who have bought before. Scaling decisions move to first-order margin and new-customer share, and that campaign’s budget is capped until it brings in new customers.",
     approach: [
       "Reconcile platform conversions with your CRM or store orders",
       "Add margin, discount or booking-value data",
@@ -167,7 +168,7 @@ export const services: Service[] = [
     ],
     metrics: ["Customer acquisition cost", "First-order margin", "New-customer share", "Payback period"],
     tools: ["Store or CRM export", "Meta and Google Ads data", "Looker Studio", "Python"],
-    watchOut: "Attribution across platforms is directional, not exact, and the report says where.",
+    watchOut: "Attribution across platforms is directional, not exact, and the report marks where it is least reliable.",
     cta: { label: "Talk to us about acquisition cost", challenge: "rising-costs" },
   },
 ];

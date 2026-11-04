@@ -51,9 +51,9 @@ export function Disclosure({
   );
 }
 
-function Indicator({ className = "" }: { className?: string }) {
+function Indicator() {
   return (
-    <span aria-hidden className={`relative size-3.5 shrink-0 ${className}`}>
+    <span aria-hidden className="relative size-3.5 shrink-0">
       <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-current" />
       <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-current transition-opacity group-open:opacity-0" />
     </span>

@@ -47,7 +47,7 @@ function Summary({ s }: { s: Service }) {
         <span className="block text-[1.4rem] leading-tight font-medium tracking-[-0.03em] text-ink-900 sm:text-[1.6rem]">
           {s.headline}
         </span>
-        <span className="mt-2 block font-normal leading-relaxed text-graphite">{s.summary}</span>
+        <span className="mt-2 block font-normal leading-relaxed text-pretty text-graphite">{s.summary}</span>
         {/* Visual only; the panel repeats it for screen readers so the summary stays short. */}
         <span aria-hidden className="mt-4 block font-mono text-[0.75rem] leading-relaxed font-normal text-signal">
           <DotList items={s.includes} />
@@ -59,9 +59,9 @@ function Summary({ s }: { s: Service }) {
 
 function Panel({ s }: { s: Service }) {
   return (
-    // The right padding matches the summary's affordance column (md:w-36 + gap-6 in Disclosure),
-    // so the panel's two columns line up with the label and headline above.
-    <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-8 lg:pr-[calc(9rem+1.5rem)]">
+    // The panel spans the full row width with a wider left share than the summary's 1fr/2fr,
+    // so the "What changes" box keeps a readable measure (45+ characters a line) from 1024px.
+    <div className="lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-10">
       <p className="sr-only">Covers: {s.includes.join(", ")}</p>
 
       <div className="space-y-6">
@@ -101,7 +101,9 @@ function Panel({ s }: { s: Service }) {
         </div>
         <div>
           <p className="kicker text-graphite">Tools</p>
-          <p className="mt-2 font-mono text-xs leading-relaxed text-graphite">{s.tools.join(" · ")}</p>
+          <p className="mt-2 font-mono text-xs leading-relaxed text-graphite">
+            <DotList items={s.tools} />
+          </p>
         </div>
         <div>
           <p className="kicker text-graphite">Watch-out</p>

@@ -4,8 +4,8 @@ import { BookCallButton } from "@/components/ui/BookCallButton";
 import { HeroDemoCard } from "@/components/dashboard/HeroDemoCard";
 
 const commitments = [
-  { title: "Cost per qualified lead", text: "The headline metric, agreed with your sales team." },
-  { title: "Reconciled with your CRM", text: "Platform numbers checked against real sales." },
+  { title: "Cost per customer", text: "Cost per qualified lead or per first order, agreed with you up front." },
+  { title: "Reconciled with your CRM or store", text: "Platform numbers checked against real sales." },
   { title: "Caveats in writing", text: "Where the data runs out, we say so." },
 ];
 
