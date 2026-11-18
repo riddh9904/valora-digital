@@ -34,7 +34,7 @@ export const site = {
   tagline: "AI-driven performance marketing, measured to the sale.",
   // Must stay ≤165 characters, so it says "other ad platforms" rather than "other paid ad platforms".
   description:
-    "Valora Digital manages Meta, Google and other ad platforms for businesses in India, the UAE and beyond, with AI optimisation steered by qualified leads and sales.",
+    "Valora Digital manages Meta, Google and other ad platforms for businesses in India, the UAE and the US, with AI optimisation steered by qualified leads and sales.",
   /** Positioning line, shown in the What we do intro and the footer. */
   positioning: "Performance marketing built around business outcomes, not vanity metrics.",
   /** Canonical origin. Override with NEXT_PUBLIC_SITE_URL in each environment. */
@@ -102,7 +102,7 @@ export const services: Service[] = [
     headline: "More qualified leads. Less wasted ad spend.",
     summary:
       "We agree with your sales team what counts as a qualified lead, send that signal to Meta’s and Google’s AI bidding, and move budget to the campaigns that produce it.",
-    includes: ["Meta Ads", "Google Ads", "LinkedIn, TikTok & Snapchat", "AI creative testing", "Catalogue campaigns"],
+    includes: ["Meta Ads", "Google Ads", "LinkedIn, TikTok & Snapchat", "AI creative testing", "In-house creative studio", "Catalogue campaigns"],
     problem:
       "Cost per lead looks healthy in the ad platform, but the sales team says many enquiries are unreachable, out of area or not ready to buy.",
     scenario:
@@ -129,7 +129,7 @@ export const services: Service[] = [
     headline: "Fewer prospects lost between the click and the sale.",
     summary:
       "We trace every step from ad click to booked appointment or completed order, find where people drop out, and fix the biggest leak first.",
-    includes: ["Landing pages", "A/B testing", "AI lead scoring", "CRM routing"],
+    includes: ["Landing pages", "A/B testing", "AI lead scoring", "AI qualification calls", "WhatsApp follow-up", "CRM routing"],
     problem:
       "Enquiries and carts get started, but few become appointments or orders, and nobody can say whether the page, the checkout or the follow-up is to blame.",
     scenario:

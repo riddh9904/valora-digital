@@ -31,7 +31,7 @@ export function Hero() {
         </h1>
         <p className="mt-6 max-w-[60ch] text-[1.06rem] leading-relaxed text-graphite sm:mx-auto sm:text-lg">
           Valora manages Meta, Google and other paid advertising platforms for businesses across India, the UAE and
-          beyond. We feed each platform’s AI your qualified leads and sales instead of raw form fills, test
+          the US. We feed each platform’s AI your qualified leads and sales instead of raw form fills, test
           AI-generated creative at speed, and report what each customer costs to acquire.
         </p>
         <div className="mt-9 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-center sm:gap-6">

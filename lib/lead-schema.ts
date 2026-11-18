@@ -14,6 +14,7 @@ export type Currency = "INR" | "AED" | "USD";
 export const MARKET_OPTIONS: readonly Option[] = [
   { value: "india", label: "India" },
   { value: "uae-gcc", label: "UAE & GCC" },
+  { value: "us", label: "United States" },
   { value: "other", label: "Other countries" },
   { value: "multiple", label: "More than one market" },
 ];
@@ -50,6 +51,7 @@ export const BUDGET_OPTIONS_BY_CURRENCY: Record<Currency, readonly Option[]> = {
 export function currencyForMarket(market: string): Currency {
   if (market === "india") return "INR";
   if (market === "uae-gcc") return "AED";
+  // "us", "other", "multiple" and unset all use USD bands.
   return "USD";
 }
 

@@ -29,13 +29,14 @@ const valid: LeadInput = {
 test("market maps to currency", () => {
   assert.equal(currencyForMarket("india"), "INR");
   assert.equal(currencyForMarket("uae-gcc"), "AED");
+  assert.equal(currencyForMarket("us"), "USD");
   assert.equal(currencyForMarket("other"), "USD");
   assert.equal(currencyForMarket("multiple"), "USD");
   assert.equal(currencyForMarket(""), "USD");
 });
 
 test("market options", () =>
-  assert.deepEqual(MARKET_OPTIONS.map((o) => o.value), ["india", "uae-gcc", "other", "multiple"]));
+  assert.deepEqual(MARKET_OPTIONS.map((o) => o.value), ["india", "uae-gcc", "us", "other", "multiple"]));
 
 test("INR bands", () =>
   assert.deepEqual(budgetOptionsFor("india").map((o) => o.value), [
@@ -61,8 +62,17 @@ test("budget must match market currency", () => {
   assert.equal(validateField("budget", { ...valid, market: "uae-gcc", budget: "not-sure" }), undefined);
 });
 
+test("us market uses USD bands", () => {
+  assert.equal(validateField("market", { ...valid, market: "us" }), undefined);
+  assert.deepEqual(budgetOptionsFor("us"), budgetOptionsFor("other"));
+  assert.equal(validateField("budget", { ...valid, market: "us", budget: "5k-15k" }), undefined);
+  assert.equal(validateField("budget", { ...valid, market: "us", budget: "inr-1l-3l" }), "Please select a budget range.");
+  assert.equal(validateField("budget", { ...valid, market: "us", budget: "aed-20k-55k" }), "Please select a budget range.");
+  assert.deepEqual(validateLead({ ...valid, market: "us", budget: "2k-5k" }), {});
+});
+
 test("old market values rejected", () =>
-  assert.ok(validateField("market", { ...valid, market: "us" })));
+  assert.ok(validateField("market", { ...valid, market: "both" })));
 
 test("valid lead has no errors", () => assert.deepEqual(validateLead(valid), {}));
 

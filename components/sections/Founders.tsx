@@ -20,7 +20,7 @@ export function Founders() {
               id="about-title"
               kicker="About"
               title="Who you’ll work with."
-              intro="Valora brings together performance marketing, engineering and data analysis. Headquartered in Dubai, with an office in Gurugram, we work with businesses in India, the UAE and beyond."
+              intro="Valora brings together performance marketing, engineering and data analysis. Headquartered in Dubai, with an office in Gurugram, we work with businesses in India, the UAE and the US."
             />
             <div className="mt-10">
               <ContactChannels />

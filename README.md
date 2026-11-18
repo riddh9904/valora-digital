@@ -57,7 +57,7 @@ The form posts to [`app/api/lead/route.ts`](app/api/lead/route.ts). That route v
     "page": "https://…/",
     "lead": {
       "fullName": "…", "email": "…", "company": "…", "website": "https://…",
-      "industry": "education", "market": "india|us|both", "budget": "2k-5k",
+      "industry": "education", "market": "india|uae-gcc|us|other|multiple", "budget": "2k-5k",
       "challenge": "lead-quality", "message": "…", "consent": true
     }
   }
