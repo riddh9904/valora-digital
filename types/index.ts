@@ -13,6 +13,8 @@ export interface Service {
   headline: string;
   summary: string;
   includes: string[];
+  /** Optional qualifier shown under `includes`, e.g. for items set up after onboarding. */
+  includesNote?: string;
   problem: string;
   /** Hypothetical. Always rendered with one "Illustrative scenario" stamp. No client, city, brand or numeric result. */
   scenario: string;

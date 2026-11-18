@@ -130,6 +130,7 @@ export const services: Service[] = [
     summary:
       "We trace every step from ad click to booked appointment or completed order, find where people drop out, and fix the biggest leak first.",
     includes: ["Landing pages", "A/B testing", "AI lead scoring", "AI qualification calls", "WhatsApp follow-up", "CRM routing"],
+    includesNote: "AI qualification calls and WhatsApp follow-up are set up in your first 30 days.",
     problem:
       "Enquiries and carts get started, but few become appointments or orders, and nobody can say whether the page, the checkout or the follow-up is to blame.",
     scenario:

@@ -52,6 +52,11 @@ function Summary({ s }: { s: Service }) {
         <span aria-hidden className="mt-4 block font-mono text-[0.75rem] leading-relaxed font-normal text-signal">
           <DotList items={s.includes} />
         </span>
+        {s.includesNote && (
+          <span aria-hidden className="mt-1 block text-[0.8rem] leading-relaxed font-normal text-graphite">
+            {s.includesNote}
+          </span>
+        )}
       </span>
     </span>
   );
@@ -62,7 +67,9 @@ function Panel({ s }: { s: Service }) {
     // The panel spans the full row width with a wider left share than the summary's 1fr/2fr,
     // so the "What changes" box keeps a readable measure (45+ characters a line) from 1024px.
     <div className="lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-10">
-      <p className="sr-only">Covers: {s.includes.join(", ")}</p>
+      <p className="sr-only">
+        Covers: {s.includes.join(", ")}.{s.includesNote && ` ${s.includesNote}`}
+      </p>
 
       <div className="space-y-6">
         <div>
