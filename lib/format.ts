@@ -39,7 +39,8 @@ export function formatDelta(value: number) {
   return `${sign}${Math.abs(value * 100).toFixed(1)}%`;
 }
 
-const shortDate = new Intl.DateTimeFormat("en-US", {
+// Dates use British order (1 October 2026, 29 Jul); numbers keep en-US grouping.
+const shortDate = new Intl.DateTimeFormat("en-GB", {
   month: "short",
   day: "numeric",
   timeZone: "UTC",
@@ -50,7 +51,7 @@ export function formatShortDate(iso: string) {
 }
 
 export function formatLongDate(iso: string) {
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat("en-GB", {
     year: "numeric",
     month: "long",
     day: "numeric",

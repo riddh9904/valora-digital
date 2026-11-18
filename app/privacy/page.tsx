@@ -16,9 +16,9 @@ const TBC = <strong>[To be confirmed]</strong>;
 export default function PrivacyPage() {
   return (
     <>
-      <PageHeader eyebrow="Legal" title="Privacy Policy" intro={<p>Last updated: {TBC}</p>} />
-      <div className="bg-white py-16 sm:py-20">
-        <div className="container-site max-w-3xl">
+      <PageHeader kicker="Legal" title="Privacy Policy" intro={<p>Last updated: {TBC}</p>} />
+      <div className="bg-white pb-24">
+        <div className="container-site max-w-4xl">
           <LegalReviewNotice />
           <Prose>
             <p>
@@ -88,7 +88,7 @@ export default function PrivacyPage() {
 
             <h2>Security</h2>
             <p>
-              We use reasonable technical and organizational measures to protect personal information.
+              We use reasonable technical and organisational measures to protect personal information.
               No method of transmission or storage is completely secure, so please avoid sending
               sensitive information through the enquiry form.
             </p>

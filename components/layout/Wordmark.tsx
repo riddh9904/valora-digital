@@ -1,38 +1,46 @@
 import Link from "next/link";
 import { site } from "@/config/site";
 
-/** Original monogram: three rising bars resolving into a forward stroke. */
-export function LogoMark({ className = "size-7" }: { className?: string }) {
+/**
+ * Signal mark: a flat-cut V knocked out of a chamfered tile. `tone` names the
+ * background it sits on: light gets an ink tile, dark gets a white tile.
+ */
+export function LogoMark({
+  className = "size-7",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: "light" | "dark";
+}) {
+  const dark = tone === "dark";
   return (
-    <svg viewBox="0 0 32 32" className={className} aria-hidden focusable="false">
-      <rect width="32" height="32" rx="8" fill="var(--brand-accent)" />
-      <rect x="8" y="17" width="3.2" height="7" rx="1.2" fill="#fff" opacity="0.55" />
-      <rect x="14.4" y="12.5" width="3.2" height="11.5" rx="1.2" fill="#fff" opacity="0.8" />
-      <path d="M20.8 24V9.8a1.2 1.2 0 0 1 2.05-.85L25 11.1" stroke="#fff" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    <svg viewBox="0 0 64 64" className={className} aria-hidden focusable="false">
+      <path d="M11 2h42l9 9v42l-9 9H11l-9-9V11z" fill={dark ? "#FFFFFF" : "var(--brand-ink)"} />
+      <path d="M15 16h9l8 17.9L40 16h9L36 45h-8z" fill={dark ? "var(--brand-ink)" : "#FFFFFF"} />
     </svg>
   );
 }
 
 export function Wordmark({
-  tone = "dark",
+  tone = "light",
   className = "",
 }: {
-  tone?: "dark" | "light";
+  tone?: "light" | "dark";
   className?: string;
 }) {
   return (
     <Link
       href="/"
-      className={`inline-flex items-center gap-2.5 ${className}`}
+      className={`inline-flex items-center gap-2 ${className}`}
       aria-label={`${site.name}, home`}
     >
-      <LogoMark />
+      <LogoMark tone={tone} className="size-6" />
       <span
-        className={`font-display text-[1.05rem] font-semibold whitespace-nowrap tracking-[-0.02em] ${
+        className={`text-[1.35rem] leading-none font-semibold tracking-[-0.035em] ${
           tone === "dark" ? "text-white" : "text-ink-900"
         }`}
       >
-        {site.name}
+        valora
       </span>
     </Link>
   );

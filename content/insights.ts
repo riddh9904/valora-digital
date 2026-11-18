@@ -12,7 +12,7 @@ export const insights: Insight[] = [
     readingMinutes: 6,
     published: "2026-10-01",
     summary:
-      "A low cost per lead can hide an expensive problem. Here's how to define a qualified lead, measure it by campaign, and point your ad platforms at the leads your sales team actually wants.",
+      "A low cost per lead can hide an expensive problem. Here’s how to define a qualified lead, measure it by campaign, and point your ad platforms at the leads your sales team actually wants.",
     sections: [
       {
         paragraphs: [
@@ -42,20 +42,20 @@ export const insights: Insight[] = [
       {
         heading: "Expect the ranking to change",
         paragraphs: [
-          "When campaigns are ranked by cost per qualified lead instead of cost per lead, the order frequently changes. Broad prospecting campaigns that look efficient can fall behind narrower, higher-intent campaigns that looked expensive. That doesn't mean broad campaigns are bad. It means their role, and their budget, should be decided with full information.",
+          "When campaigns are ranked by cost per qualified lead instead of cost per lead, the order frequently changes. Broad prospecting campaigns that look efficient can fall behind narrower, higher-intent campaigns that looked expensive. That doesn’t mean broad campaigns are bad. It means their role, and their budget, should be decided with full information.",
         ],
       },
       {
         heading: "Feed quality back to the platforms",
         paragraphs: [
-          "Meta and Google both optimize toward whatever conversion event you give them. If that event is a form submission, they will find people who submit forms. Where the data allows it, importing qualified-lead or sale events (through offline conversion imports or CRM integrations) lets the platforms optimize toward the outcome you care about.",
+          "Meta and Google both optimise toward whatever conversion event you give them. If that event is a form submission, they will find people who submit forms. Where the data allows it, importing qualified-lead or sale events (through offline conversion imports or CRM integrations) lets the platforms optimise toward the outcome you care about.",
           "This needs volume and consistency to work well, and it depends on the sales team updating lead statuses promptly. That operational habit is often the real bottleneck, and worth solving first.",
         ],
       },
       {
         heading: "A practical starting point",
         paragraphs: [
-          "You don't need a sophisticated attribution model to begin. Agree on a definition, make sure campaign data reaches the CRM, and review cost per qualified lead every week alongside the platform numbers. Within a few cycles you will know far more about which spend is working, and so will the people deciding where the next budget goes.",
+          "You don’t need a sophisticated attribution model to begin. Agree on a definition, make sure campaign data reaches the CRM, and review cost per qualified lead every week alongside the platform numbers. Within a few cycles you will know far more about which spend is working, and so will the people deciding where the next budget goes.",
         ],
       },
     ],
@@ -84,7 +84,7 @@ export const insights: Insight[] = [
         heading: "2. Platform-attributed revenue overlaps",
         paragraphs: [
           "Each advertising platform reports the conversions it can claim under its own attribution rules. When a customer sees a Meta ad and later clicks a Google search ad, both platforms may count the same order. Summing platform-reported revenue therefore often exceeds the revenue your store or CRM actually recorded.",
-          "A useful habit is to compare total platform-attributed revenue with actual revenue for the same period. The gap won't tell you which platform is right, but it shows how much overlap you are dealing with and stops double-counting from inflating your sense of performance.",
+          "A useful habit is to compare total platform-attributed revenue with actual revenue for the same period. The gap won’t tell you which platform is right, but it shows how much overlap you are dealing with and stops double-counting from inflating your sense of performance.",
         ],
       },
       {
@@ -118,7 +118,7 @@ export const insights: Insight[] = [
       },
       {
         paragraphs: [
-          "ROAS remains useful for spotting changes quickly inside a platform. It just shouldn't be the only number deciding where the budget goes.",
+          "ROAS remains useful for spotting changes quickly inside a platform. It just shouldn’t be the only number deciding where the budget goes.",
         ],
       },
     ],
@@ -130,7 +130,7 @@ export const insights: Insight[] = [
     readingMinutes: 6,
     published: "2026-10-12",
     summary:
-      "Duplicate events, missing UTMs, the wrong optimization goal, and more. Common tracking errors that quietly mislead campaign decisions, and how to check for each.",
+      "Duplicate events, missing UTMs, the wrong optimisation goal, and more. Common tracking errors that quietly mislead campaign decisions, and how to check for each.",
     sections: [
       {
         paragraphs: [
@@ -145,16 +145,16 @@ export const insights: Insight[] = [
         ],
       },
       {
-        heading: "2. Optimizing for the wrong event",
+        heading: "2. Optimising for the wrong event",
         paragraphs: [
-          "If a campaign is told to optimize for page views, button clicks or “add to cart”, it will find people who do those things, which may not be the people who buy. Micro-conversions can help new campaigns gather data, but the primary optimization goal should be as close to real business value as your volume allows.",
+          "If a campaign is told to optimise for page views, button clicks or “add to cart”, it will find people who do those things, which may not be the people who buy. Micro-conversions can help new campaigns gather data, but the primary optimisation goal should be as close to real business value as your volume allows.",
           "How to check: list the primary conversion action for every active campaign and confirm each one is the outcome you would actually pay for.",
         ],
       },
       {
         heading: "3. Losing the source between the click and the CRM",
         paragraphs: [
-          "Inconsistent or missing UTM parameters, redirects that strip query strings, and forms that don't capture campaign data all break the chain from ad to lead. The result is a CRM full of leads labelled “direct” or “unknown”, and no way to judge campaigns by lead quality.",
+          "Inconsistent or missing UTM parameters, redirects that strip query strings, and forms that don’t capture campaign data all break the chain from ad to lead. The result is a CRM full of leads labelled “direct” or “unknown”, and no way to judge campaigns by lead quality.",
           "How to check: submit a test enquiry from each live ad and confirm the campaign details arrive intact in the CRM record.",
         ],
       },
@@ -168,14 +168,14 @@ export const insights: Insight[] = [
       {
         heading: "5. Mixing attribution windows and definitions",
         paragraphs: [
-          "Platforms use different default attribution windows and models, and those defaults change over time. Comparing a 7-day-click figure from one platform with a 30-day-click-plus-view figure from another isn't a fair comparison, and neither matches what your analytics tool reports.",
+          "Platforms use different default attribution windows and models, and those defaults change over time. Comparing a 7-day-click figure from one platform with a 30-day-click-plus-view figure from another isn’t a fair comparison, and neither matches what your analytics tool reports.",
           "How to check: document the attribution setting behind every number in your reports, align settings where possible, and label any figure that uses a different basis.",
         ],
       },
       {
         heading: "Make tracking a maintained system",
         paragraphs: [
-          "Tracking isn't a one-time setup. Site changes, new forms, platform updates and new campaigns all introduce risk. A short monthly check, comparing platform conversions with real records and testing a few key journeys end-to-end, catches most problems before they influence a budget decision.",
+          "Tracking isn’t a one-time setup. Site changes, new forms, platform updates and new campaigns all introduce risk. A short monthly check, comparing platform conversions with real records and testing a few key journeys end-to-end, catches most problems before they influence a budget decision.",
         ],
       },
     ],

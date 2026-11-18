@@ -7,23 +7,19 @@
  *  • Leave contact/social fields as `null` until they are real. Empty values are
  *    hidden automatically; nothing is invented to fill the gap.
  *  • Proof points render only when `verified: true` AND a `source` is given.
- *  • Case studies with kind "verified" must have permission to publish and a
- *    stated data source + measurement period. Everything else is labelled as
- *    illustrative on the page.
+ *  • `caseStudies` holds verified client work only: written permission to
+ *    publish (`publicationApproved: true`), plus a source on every outcome and a
+ *    measurement period. Until then the Client work section is not rendered.
+ *  • `services` describes our method. It never names or implies a client and
+ *    never shows numeric results; each `scenario` is hypothetical and renders
+ *    with one "Illustrative scenario" stamp.
  * ─────────────────────────────────────────────────────────────────────────────
  */
-import {
-  ChartNoAxesCombined,
-  Crosshair,
-  Magnet,
-  MousePointerClick,
-  ShoppingBag,
-  Workflow,
-} from "lucide-react";
 import type {
   CaseStudy,
   Founder,
   Industry,
+  Location,
   NavItem,
   ProofPoint,
   Service,
@@ -35,9 +31,12 @@ const env = (value: string | undefined) =>
 export const site = {
   name: "Valora Digital",
   shortName: "Valora",
-  tagline: "Performance marketing with conversion intelligence.",
+  tagline: "AI-driven performance marketing, measured to the sale.",
+  // Must stay ≤165 characters, so it says "other ad platforms" rather than "other paid ad platforms".
   description:
-    "Valora Digital is a performance marketing partner for ambitious businesses: Meta and Google Ads, lead generation, conversion rate optimization and marketing analytics that connect spend to real business outcomes.",
+    "Valora Digital manages Meta, Google and other ad platforms for businesses in India, the UAE and the US, with AI optimisation steered by qualified leads and sales.",
+  /** Positioning line, shown in the What we do intro and the footer. */
+  positioning: "Performance marketing built around business outcomes, not vanity metrics.",
   /** Canonical origin. Override with NEXT_PUBLIC_SITE_URL in each environment. */
   url: env(process.env.NEXT_PUBLIC_SITE_URL) ?? "http://localhost:3000",
   locale: "en_IN",
@@ -47,18 +46,22 @@ export const site = {
    * and consumed by the Tailwind theme in app/globals.css.
    */
   colors: {
-    ink: "#0A1022",
-    inkDeep: "#070B18",
-    paper: "#F7F6F2",
-    accent: "#3461F0",
-    accentBright: "#5B84FF",
-    violet: "#7C5CFF",
+    ink: "#0B0C0E",
+    mist: "#F4F5F4",
+    graphite: "#5E6368",
+    line: "#E1E3E1",
+    signal: "#0B7A5A",
+    signalBright: "#12B886",
   },
 
   /** Contact details. `null` = not shown anywhere on the site. */
   contact: {
-    email: null as string | null,
+    email: "inquiry@valoradigital.co" as string | null,
     phone: null as string | null,
+    whatsapp: { e164: "+918368526041", display: "+91 83685 26041" } as {
+      e164: string;
+      display: string;
+    } | null,
     address: null as string | null,
   },
 
@@ -73,75 +76,101 @@ export const site = {
   bookingUrl: env(process.env.NEXT_PUBLIC_BOOKING_URL),
 
   cta: {
-    primary: "Book a strategy call",
+    primary: env(process.env.NEXT_PUBLIC_BOOKING_URL) ? "Book a call" : "Start a conversation",
     secondary: "Explore our approach",
     form: "Tell us about your business",
   },
 } as const;
 
+export const locations: Location[] = [
+  { city: "Dubai", role: "Headquarters" },
+  { city: "Gurugram", role: "Office" },
+];
+
 export const navItems: NavItem[] = [
   { label: "Services", href: "/#services" },
   { label: "Industries", href: "/#industries" },
-  { label: "Our approach", href: "/#approach" },
+  { label: "How we work", href: "/#approach" },
   { label: "Insights", href: "/#insights" },
   { label: "About", href: "/#about" },
 ];
 
 export const services: Service[] = [
   {
-    id: "paid-media",
-    title: "Paid media management",
-    icon: Crosshair,
-    description:
-      "Meta Ads and Google Ads management: campaign structure, targeting, budget allocation and continuous optimization.",
-    benefit:
-      "Budget moves toward the campaigns that produce qualified demand, not just cheap clicks.",
-    capabilities: ["Meta Ads", "Google Ads", "Budget pacing", "Account structure"],
-  },
-  {
     id: "lead-generation",
-    title: "Lead generation",
-    icon: Magnet,
-    description:
-      "Campaigns designed to generate relevant enquiries and qualified opportunities, with lead quality tracked from day one.",
-    benefit: "A sales pipeline judged by fit and intent, not form-fill volume.",
-    capabilities: ["Lead forms", "Qualification criteria", "Lead scoring inputs"],
+    label: "Lead generation",
+    headline: "More qualified leads. Less wasted ad spend.",
+    summary:
+      "We agree with your sales team what counts as a qualified lead, send that signal to Meta’s and Google’s AI bidding, and move budget to the campaigns that produce it.",
+    includes: ["Meta Ads", "Google Ads", "LinkedIn, TikTok & Snapchat", "AI creative testing", "In-house creative studio", "Catalogue campaigns"],
+    problem:
+      "Cost per lead looks healthy in the ad platform, but the sales team says many enquiries are unreachable, out of area or not ready to buy.",
+    scenario:
+      "A residential developer runs lead-form campaigns. The campaigns with the cheapest leads produce almost no site visits. Their budget moves to the campaign whose leads the sales team rates highest, and the platform is sent site-visit bookings, not form fills, as the result to optimise for.",
+    approach: [
+      "Write down the qualified-lead definition and the CRM status that marks it",
+      "Pass campaign and ad IDs into the CRM with every lead",
+      "Report cost per qualified lead next to platform cost per lead",
+      "Send qualified-lead events back through Meta’s Conversions API and Google’s offline conversion import, so bidding optimises for them",
+    ],
+    metrics: [
+      "Cost per qualified lead",
+      "Qualified-lead rate",
+      "Lead-to-opportunity rate",
+      "Spend on campaigns with no qualified leads",
+    ],
+    tools: ["Conversions API", "Offline conversion import", "CRM field mapping", "UTM governance"],
+    watchOut: "Only as good as the CRM data: the sales team needs to update lead status consistently.",
+    cta: { label: "Talk to us about lead quality", challenge: "lead-quality" },
   },
   {
-    id: "cro",
-    title: "Conversion rate optimization",
-    icon: MousePointerClick,
-    description:
-      "Landing-page analysis, funnel improvements, structured experimentation and conversion diagnostics.",
-    benefit: "More customers from the traffic you already pay for.",
-    capabilities: ["Landing pages", "A/B testing", "Funnel diagnostics"],
+    id: "conversion",
+    label: "Conversion optimisation",
+    headline: "Fewer prospects lost between the click and the sale.",
+    summary:
+      "We trace every step from ad click to booked appointment or completed order, find where people drop out, and fix the biggest leak first.",
+    includes: ["Landing pages", "A/B testing", "AI lead scoring", "AI qualification calls", "WhatsApp follow-up", "CRM routing"],
+    includesNote: "AI qualification calls and WhatsApp follow-up are set up in your first 30 days.",
+    problem:
+      "Enquiries and carts get started, but few become appointments or orders, and nobody can say whether the page, the checkout or the follow-up is to blame.",
+    scenario:
+      "Most of a clinic’s enquiries arrive in the evening, but calls go out the next morning, and by then many people have booked elsewhere. An instant reply by message and a choice of callback time are tested first, before anyone touches the landing page.",
+    approach: [
+      "Map every step from ad click to appointment or order",
+      "Track form and checkout starts, submissions and follow-up",
+      "Break drop-off down by device, channel and campaign",
+      "Turn the findings into a ranked test plan for the page and the follow-up",
+    ],
+    metrics: [
+      "Landing-page conversion rate",
+      "Form or checkout completion rate",
+      "Enquiry-to-appointment rate",
+      "Time to first response",
+    ],
+    tools: ["GA4", "Google Tag Manager", "Funnel reports", "A/B testing"],
+    watchOut: "Needs enough traffic and tracking coverage to tell a real drop-off from noise.",
+    cta: { label: "Talk to us about your funnel", challenge: "conversion" },
   },
   {
-    id: "analytics",
-    title: "Marketing analytics",
-    icon: ChartNoAxesCombined,
-    description:
-      "Conversion tracking, attribution analysis, reporting dashboards and acquisition economics.",
-    benefit: "Decisions grounded in numbers your team can trust and explain.",
-    capabilities: ["Tracking setup", "Attribution", "Dashboards", "CAC & payback"],
-  },
-  {
-    id: "ecommerce",
-    title: "E-commerce growth",
-    icon: ShoppingBag,
-    description:
-      "Customer acquisition, creative testing, purchase-funnel optimization and campaign performance analysis for D2C brands.",
-    benefit: "Profitable acquisition measured against margin, not platform-reported ROAS alone.",
-    capabilities: ["Creative testing", "Catalogue campaigns", "Checkout funnel"],
-  },
-  {
-    id: "automation",
-    title: "Marketing automation",
-    icon: Workflow,
-    description:
-      "Lead routing, CRM workflows, follow-up automation and lead lifecycle reporting.",
-    benefit: "Faster follow-up and a clear record of what happens after the enquiry.",
-    capabilities: ["Lead routing", "CRM workflows", "Lifecycle reporting"],
+    id: "profitability",
+    label: "Performance & profitability",
+    headline: "What each new customer costs, measured against margin.",
+    summary: "We connect ad spend to leads, sales and margin, so budget goes to the campaigns that pay.",
+    includes: ["GA4 & Tag Manager", "Offline conversions", "Dashboards", "CAC & payback"],
+    problem:
+      "Campaigns are optimised on platform-reported ROAS, while finance judges the business on margin or booked sales from a separate system.",
+    scenario:
+      "A skincare brand’s best-ROAS campaign sells mostly discounted bundles to people who have bought before. Scaling decisions move to first-order margin and new-customer share, and that campaign’s budget is capped until it brings in new customers.",
+    approach: [
+      "Reconcile platform conversions with your CRM or store orders",
+      "Add margin, discount or booking-value data",
+      "Build a weekly acquisition-cost report by channel",
+      "Agree scale and pause thresholds before spend goes up",
+    ],
+    metrics: ["Customer acquisition cost", "First-order margin", "New-customer share", "Payback period"],
+    tools: ["Store or CRM export", "Meta and Google Ads data", "Looker Studio", "Python"],
+    watchOut: "Attribution across platforms is directional, not exact, and the report marks where it is least reliable.",
+    cta: { label: "Talk to us about acquisition cost", challenge: "rising-costs" },
   },
 ];
 
@@ -158,7 +187,7 @@ export const industries: Industry[] = [
       "Campaign and project-level tracking",
       "Lead follow-up measurement",
     ],
-    services: ["Lead generation", "Marketing automation", "Marketing analytics"],
+    summary: "Enquiries are cheap. Site visits are what count.",
     funnel: ["Enquiries", "Qualified", "Site visits", "Bookings"],
   },
   {
@@ -173,7 +202,7 @@ export const industries: Industry[] = [
       "Application funnel visibility",
       "Admission conversion measurement",
     ],
-    services: ["Lead generation", "Conversion rate optimization", "Marketing analytics"],
+    summary: "Long decisions, many sources. We track which ones lead to applications.",
     funnel: ["Enquiries", "Counselled", "Applications", "Enrolments"],
   },
   {
@@ -188,7 +217,7 @@ export const industries: Industry[] = [
       "Purchase conversion",
       "Acquisition economics",
     ],
-    services: ["Paid media management", "E-commerce growth", "Conversion rate optimization"],
+    summary: "Acquisition judged against first-order margin, not platform ROAS alone.",
     funnel: ["Sessions", "Add to cart", "Checkout", "Orders"],
   },
   {
@@ -203,7 +232,7 @@ export const industries: Industry[] = [
       "Enquiry-to-customer conversion",
       "Campaign profitability measurement",
     ],
-    services: ["Paid media management", "Lead generation", "Marketing automation"],
+    summary: "Missed calls quietly erase a campaign’s value.",
     funnel: ["Enquiries", "Contacted", "Appointments", "Customers"],
   },
 ];
@@ -218,66 +247,5 @@ export const proofPoints: ProofPoint[] = [];
 /** Founder profiles. The section shows team copy only until real, approved bios are added. */
 export const founders: Founder[] = [];
 
-/**
- * Selected projects & demonstrations.
- * Non-verified entries are always labelled "Illustrative scenario · Not an actual client engagement".
- */
-export const caseStudies: CaseStudy[] = [
-  {
-    id: "lead-quality-scoring",
-    kind: "methodology",
-    category: "Lead quality",
-    title: "Separating lead volume from lead quality",
-    context:
-      "A business running lead-generation campaigns sees a healthy cost per lead in the ad platform, while the sales team reports that many enquiries are unreachable or out of scope.",
-    objective:
-      "Define what a qualified lead means for the business and report campaign performance on that basis.",
-    work: [
-      "Agree qualification criteria with the sales team",
-      "Pass campaign and ad identifiers into the CRM with every lead",
-      "Report cost per qualified lead by campaign alongside platform CPL",
-      "Feed qualified-lead signals back to the ad platforms where supported",
-    ],
-    tools: ["UTM governance", "CRM field mapping", "Offline conversion import", "SQL / spreadsheets"],
-    limitations:
-      "Requires consistent lead status updates from the sales team; results depend on CRM data quality.",
-  },
-  {
-    id: "funnel-diagnostic",
-    kind: "illustrative",
-    category: "Conversion diagnostics",
-    title: "Finding where an enquiry funnel leaks",
-    context:
-      "A services business generates steady landing-page traffic, but booked appointments lag well behind enquiries.",
-    objective:
-      "Locate the largest drop-off between first click and booked appointment, then prioritize fixes by expected impact.",
-    work: [
-      "Map every step from ad click to appointment",
-      "Instrument form starts, submissions and follow-up events",
-      "Segment drop-off by device, channel and campaign",
-      "Draft a ranked experiment backlog for the landing page and follow-up process",
-    ],
-    tools: ["GA4", "Google Tag Manager", "Funnel analysis", "Experiment backlog"],
-    limitations:
-      "Scenario for illustration only. Actual findings depend on the business, its tracking coverage and traffic volume.",
-  },
-  {
-    id: "spend-to-revenue",
-    kind: "illustrative",
-    category: "Acquisition economics",
-    title: "Connecting ad spend to first-order margin",
-    context:
-      "A D2C brand optimizes campaigns on platform-reported ROAS, while finance reviews contribution margin from a separate system.",
-    objective:
-      "Create a weekly view that compares spend with orders, margin and new-customer share by channel.",
-    work: [
-      "Reconcile platform conversions with store orders",
-      "Add product margin and discount data to order records",
-      "Build a weekly acquisition-economics report by channel",
-      "Set guardrails for scaling and pausing campaigns",
-    ],
-    tools: ["Shopify export", "Meta & Google Ads data", "Looker Studio", "Python"],
-    limitations:
-      "Scenario for illustration only. Attribution across platforms is directional, not exact.",
-  },
-];
+/** Verified client work only. Rendered only with publicationApproved: true and a source on every outcome. */
+export const caseStudies: CaseStudy[] = [];

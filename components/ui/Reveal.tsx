@@ -3,11 +3,15 @@
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
 
-/** Subtle entrance transition. Respects reduced-motion via MotionConfig in the root layout. */
+/**
+ * Subtle entrance transition. MotionConfig in the root layout drops the movement under
+ * reduced motion, and the `[data-reveal]` rule in globals.css keeps the content visible
+ * without waiting for it to scroll into view.
+ */
 export function Reveal({
   children,
   delay = 0,
-  y = 18,
+  y = 8,
   className,
   as = "div",
 }: {
@@ -20,6 +24,7 @@ export function Reveal({
   const Cmp = motion[as];
   return (
     <Cmp
+      data-reveal=""
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}

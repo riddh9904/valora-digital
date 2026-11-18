@@ -4,30 +4,76 @@
  */
 import { industries } from "@/config/site";
 
-export const MARKET_OPTIONS = [
-  { value: "india", label: "India" },
-  { value: "us", label: "United States" },
-  { value: "both", label: "Both India and the US" },
-] as const;
+export interface Option {
+  value: string;
+  label: string;
+}
 
-export const BUDGET_OPTIONS = [
-  { value: "under-2k", label: "Under $2,000 / month" },
-  { value: "2k-5k", label: "$2,000 – $5,000 / month" },
-  { value: "5k-15k", label: "$5,000 – $15,000 / month" },
-  { value: "15k-50k", label: "$15,000 – $50,000 / month" },
-  { value: "50k-plus", label: "$50,000+ / month" },
-  { value: "not-sure", label: "Not sure yet" },
-] as const;
+export type Currency = "INR" | "AED" | "USD";
+
+export const MARKET_OPTIONS: readonly Option[] = [
+  { value: "india", label: "India" },
+  { value: "uae-gcc", label: "UAE & GCC" },
+  { value: "us", label: "United States" },
+  { value: "other", label: "Other countries" },
+  { value: "multiple", label: "More than one market" },
+];
+
+const NOT_SURE: Option = { value: "not-sure", label: "Not sure yet" };
+
+export const BUDGET_OPTIONS_BY_CURRENCY: Record<Currency, readonly Option[]> = {
+  INR: [
+    { value: "inr-under-1l", label: "Under ₹1 lakh / month" },
+    { value: "inr-1l-3l", label: "₹1–3 lakh / month" },
+    { value: "inr-3l-10l", label: "₹3–10 lakh / month" },
+    { value: "inr-10l-30l", label: "₹10–30 lakh / month" },
+    { value: "inr-30l-plus", label: "₹30 lakh+ / month" },
+    NOT_SURE,
+  ],
+  AED: [
+    { value: "aed-under-7500", label: "Under AED 7,500 / month" },
+    { value: "aed-7500-20k", label: "AED 7,500–20,000 / month" },
+    { value: "aed-20k-55k", label: "AED 20,000–55,000 / month" },
+    { value: "aed-55k-185k", label: "AED 55,000–185,000 / month" },
+    { value: "aed-185k-plus", label: "AED 185,000+ / month" },
+    NOT_SURE,
+  ],
+  USD: [
+    { value: "under-2k", label: "Under $2,000 / month" },
+    { value: "2k-5k", label: "$2,000 – $5,000 / month" },
+    { value: "5k-15k", label: "$5,000 – $15,000 / month" },
+    { value: "15k-50k", label: "$15,000 – $50,000 / month" },
+    { value: "50k-plus", label: "$50,000+ / month" },
+    NOT_SURE,
+  ],
+};
+
+export function currencyForMarket(market: string): Currency {
+  if (market === "india") return "INR";
+  if (market === "uae-gcc") return "AED";
+  // "us", "other", "multiple" and unset all use USD bands.
+  return "USD";
+}
+
+export const budgetOptionsFor = (market: string): readonly Option[] =>
+  BUDGET_OPTIONS_BY_CURRENCY[currencyForMarket(market)];
+
+/** Every band across currencies (de-duplicated), for label lookups. */
+export const BUDGET_OPTIONS: readonly Option[] = [
+  ...new Map(Object.values(BUDGET_OPTIONS_BY_CURRENCY).flat().map((o) => [o.value, o])).values(),
+];
 
 export const CHALLENGE_OPTIONS = [
   { value: "lead-quality", label: "Lead quality is inconsistent" },
   { value: "lead-volume", label: "Not enough leads or sales" },
   { value: "rising-costs", label: "Acquisition costs are rising" },
-  { value: "conversion", label: "Leads aren't converting to customers" },
+  { value: "conversion", label: "Leads aren’t converting to customers" },
   { value: "measurement", label: "Unclear tracking or attribution" },
   { value: "launch", label: "Launching paid campaigns for the first time" },
   { value: "other", label: "Something else" },
 ] as const;
+
+export type ChallengeValue = (typeof CHALLENGE_OPTIONS)[number]["value"];
 
 export const INDUSTRY_OPTIONS = [
   ...industries.map((i) => ({ value: i.id, label: i.title })),
@@ -117,7 +163,7 @@ export function validateField(field: LeadField, input: LeadInput): string | unde
     case "market":
       return inOptions(String(v), MARKET_OPTIONS) ? undefined : "Please select your target market.";
     case "budget":
-      return inOptions(String(v), BUDGET_OPTIONS) ? undefined : "Please select a budget range.";
+      return inOptions(String(v), budgetOptionsFor(input.market)) ? undefined : "Please select a budget range.";
     case "challenge":
       return inOptions(String(v), CHALLENGE_OPTIONS) ? undefined : "Please select your main challenge.";
     case "message":
@@ -129,18 +175,17 @@ export function validateField(field: LeadField, input: LeadInput): string | unde
   }
 }
 
-export const FIELD_ORDER: LeadField[] = [
-  "fullName",
-  "email",
-  "company",
-  "website",
-  "industry",
+export const STEP_ONE_FIELDS: readonly LeadField[] = ["fullName", "email", "company", "website"];
+export const STEP_TWO_FIELDS: readonly LeadField[] = [
   "market",
+  "industry",
   "budget",
   "challenge",
   "message",
   "consent",
 ];
+
+export const FIELD_ORDER: readonly LeadField[] = [...STEP_ONE_FIELDS, ...STEP_TWO_FIELDS];
 
 export function validateLead(input: LeadInput): LeadErrors {
   const errors: LeadErrors = {};

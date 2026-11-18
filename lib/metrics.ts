@@ -81,7 +81,7 @@ export function relativeChange(current: number, previous: number) {
   return previous > 0 ? (current - previous) / previous : 0;
 }
 
-export type TrendMetric = "leads" | "spend" | "cpl";
+export type TrendMetric = "leads" | "spend" | "cpl" | "cpql";
 
 export interface TrendPoint {
   date: string;
@@ -91,11 +91,11 @@ export interface TrendPoint {
 
 /** Daily series split by channel, for the selected metric. */
 export function dailyByChannel(rows: DailyRow[], dates: string[], metric: TrendMetric): TrendPoint[] {
-  const bucket = new Map<string, Record<Channel, { spend: number; leads: number; seen: boolean }>>();
+  const bucket = new Map<string, Record<Channel, { spend: number; leads: number; qualified: number; seen: boolean }>>();
   for (const d of dates) {
     bucket.set(d, {
-      meta: { spend: 0, leads: 0, seen: false },
-      google: { spend: 0, leads: 0, seen: false },
+      meta: { spend: 0, leads: 0, qualified: 0, seen: false },
+      google: { spend: 0, leads: 0, qualified: 0, seen: false },
     });
   }
   for (const r of rows) {
@@ -103,12 +103,15 @@ export function dailyByChannel(rows: DailyRow[], dates: string[], metric: TrendM
     if (!day) continue;
     day[r.channel].spend += r.spend;
     day[r.channel].leads += r.leads;
+    day[r.channel].qualified += r.qualified;
     day[r.channel].seen = true;
   }
-  const pick = (v: { spend: number; leads: number; seen: boolean }) => {
+  const pick = (v: { spend: number; leads: number; qualified: number; seen: boolean }) => {
     if (!v.seen) return undefined;
     if (metric === "leads") return v.leads;
     if (metric === "spend") return Math.round(v.spend);
+    if (metric === "cpql")
+      return v.qualified > 0 ? Math.round((v.spend / v.qualified) * 100) / 100 : undefined;
     return v.leads > 0 ? Math.round((v.spend / v.leads) * 100) / 100 : undefined;
   };
   return dates.map((date) => {

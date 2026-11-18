@@ -1,12 +1,12 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/config/site";
 
-export const alt = `${site.name}: Turn marketing spend into measurable growth`;
+export const alt = `${site.name}: AI-driven performance marketing, measured to the sale`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// next/font is unavailable here, so this uses the default font ImageResponse ships.
 export default function OpengraphImage() {
-  const bars = [0.32, 0.44, 0.4, 0.56, 0.52, 0.68, 0.64, 0.8, 0.9];
   return new ImageResponse(
     (
       <div
@@ -17,37 +17,22 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: "linear-gradient(135deg, #070B18 0%, #0E1530 60%, #1A1D4A 100%)",
-          color: "white",
-          fontFamily: "sans-serif",
+          background: "#FFFFFF",
+          color: site.colors.ink,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div style={{ width: 48, height: 48, borderRadius: 12, background: site.colors.accent, display: "flex" }} />
-          <div style={{ fontSize: 34, fontWeight: 600, letterSpacing: -1 }}>{site.name}</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <svg width="72" height="72" viewBox="0 0 64 64">
+            <path d="M11 2h42l9 9v42l-9 9H11l-9-9V11z" fill={site.colors.ink} />
+            <path d="M15 16h9l8 17.9L40 16h9L36 45h-8z" fill="#FFFFFF" />
+          </svg>
+          <div style={{ fontSize: 56, fontWeight: 600, letterSpacing: -2 }}>valora</div>
         </div>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", flexDirection: "column", maxWidth: 720 }}>
-            <div style={{ fontSize: 20, letterSpacing: 4, color: "#A9BDFF", textTransform: "uppercase" }}>
-              Performance marketing · Conversion intelligence
-            </div>
-            <div style={{ fontSize: 72, fontWeight: 600, lineHeight: 1.02, letterSpacing: -2.5, marginTop: 20 }}>
-              Turn marketing spend into measurable growth.
-            </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "flex-end", gap: 10, height: 220 }}>
-            {bars.map((h, i) => (
-              <div
-                key={i}
-                style={{
-                  width: 22,
-                  height: 220 * h,
-                  borderRadius: 5,
-                  background: i === bars.length - 1 ? site.colors.accentBright : "rgba(169,189,255,0.28)",
-                }}
-              />
-            ))}
-          </div>
+        <div style={{ display: "flex", fontSize: 64, fontWeight: 500, lineHeight: 1.1, letterSpacing: -2, maxWidth: 980 }}>
+          Ad platforms run on AI. We teach it what a customer is.
+        </div>
+        <div style={{ display: "flex", fontSize: 26, color: site.colors.graphite }}>
+          valoradigital.co · Dubai · Gurugram
         </div>
       </div>
     ),

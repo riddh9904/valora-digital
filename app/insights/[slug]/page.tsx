@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
 import { getInsight, insights } from "@/content/insights";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Prose } from "@/components/layout/Prose";
-import { BookCallButton } from "@/components/ui/BookCallButton";
+import { TalkToUsButton } from "@/components/ui/TalkToUsButton";
 import { formatLongDate } from "@/lib/format";
 import { site } from "@/config/site";
 
@@ -31,6 +30,17 @@ export async function generateMetadata({ params }: PageProps<"/insights/[slug]">
   };
 }
 
+// Unknown slugs must get a real 404 status, so notFound() has to run before any response
+// is sent:
+// - `params` is read at the top, outside any Suspense boundary.
+// - `ensureStatic = "navigation"` makes a request for a slug missing from generateStaticParams
+//   wait for the complete render instead of streaming the route's fallback App Shell (which
+//   partial prefetching would otherwise send with a 200 before notFound() runs).
+// - `instant = false` allows that blocking read and silences the dev-only
+//   instant-shell-url-data insight.
+export const ensureStatic = "navigation";
+export const instant = false;
+
 export default async function InsightPage({ params }: PageProps<"/insights/[slug]">) {
   const { slug } = await params;
   const article = getInsight(slug);
@@ -52,17 +62,17 @@ export default async function InsightPage({ params }: PageProps<"/insights/[slug
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-      <PageHeader eyebrow={article.category} title={article.title} intro={<p>{article.summary}</p>}>
-        <p className="mt-8 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-400">
+      <PageHeader kicker={article.category} title={article.title} intro={<p>{article.summary}</p>}>
+        <p className="mt-8 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-graphite">
           <time dateTime={article.published}>{formatLongDate(article.published)}</time>
           <span>{article.readingMinutes} min read</span>
         </p>
       </PageHeader>
 
-      <div className="bg-white py-16 sm:py-20">
-        <div className="container-site max-w-3xl">
-          <Link href="/#insights" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-ink-900">
-            <ArrowLeft aria-hidden className="size-4" /> Back to insights
+      <div className="bg-white pb-24">
+        <div className="container-site max-w-4xl">
+          <Link href="/insights" className="link-underline text-sm text-graphite hover:text-ink-900">
+            ← All insights
           </Link>
           <Prose>
             {article.sections.map((s, i) => (
@@ -82,13 +92,13 @@ export default async function InsightPage({ params }: PageProps<"/insights/[slug
             ))}
           </Prose>
 
-          <aside className="dark-surface mt-16 rounded-[var(--radius-lg)] bg-ink-900 p-8 text-white sm:p-10">
-            <p className="font-display text-2xl font-semibold tracking-tight">Want a second opinion on your funnel?</p>
-            <p className="mt-3 max-w-lg text-slate-300">
+          <aside className="mt-16 max-w-[680px] border-t border-line pt-8">
+            <p className="text-2xl font-medium tracking-tight text-ink-900">Want a second opinion on your funnel?</p>
+            <p className="mt-3 text-graphite">
               Tell us about your campaigns and what you’re measuring today. We’ll share where we
               think the biggest opportunities may be.
             </p>
-            <BookCallButton className="mt-7" />
+            <TalkToUsButton title={article.title} />
           </aside>
         </div>
       </div>

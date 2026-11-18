@@ -2,8 +2,9 @@ import { site } from "@/config/site";
 import { ButtonLink } from "./Button";
 
 /**
- * "Book a strategy call". Opens the configured booking URL, or falls back to
- * the on-page enquiry form when no scheduler has been set up yet.
+ * The primary CTA ("Book a call" / "Start a conversation", from site.cta.primary).
+ * Opens the configured booking URL, or falls back to the on-page enquiry form
+ * when no scheduler has been set up yet.
  */
 export function BookCallButton({
   variant = "primary",
@@ -11,7 +12,7 @@ export function BookCallButton({
   className,
   label = site.cta.primary,
 }: {
-  variant?: "primary" | "secondary" | "ghost" | "light";
+  variant?: "primary" | "ink" | "ghost" | "light" | "text";
   size?: "md" | "lg";
   className?: string;
   label?: string;
